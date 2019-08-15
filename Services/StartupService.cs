@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Reflection;
+using ShibaBot.Data.DAO;
 using Discord.WebSocket;
 using Discord.Commands;
 using Discord;
@@ -18,7 +18,7 @@ namespace ShibaBot.Services {
             _commands = commands;
         }
         public async Task RunAsync() {
-            //await _client.LoginAsync()
+            await _client.LoginAsync(TokenType.Bot, new ShibaConfigDAO().Load().Token);
             await _client.StartAsync();
 
             await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _provider);

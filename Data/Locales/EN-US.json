@@ -1,9 +1,16 @@
 {
-  "CommandNotFound": "",
-  "ObjectNotFound": "",
-  "UnknownCommand": "",
+  "Errors": {
+    "BadArgCount": "",
+    "ObjectNotFound": "",
+    "UnknownCommand": "",
+    "UnmetCondition": {
+      "GuildOnly": ""
+    }
+  },
   "Mention": "",
-  "Image": {
-    "shibe": ""
+  "Modules": {
+    "Image": {
+      "shibe": ""
+    }
   }
 }

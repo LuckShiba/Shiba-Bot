@@ -1,9 +1,16 @@
 {
-  "CommandNotFound": "",
-  "ObjectNotFound": "",
-  "UnknownCommand": "",
+  "Errors": {
+    "BadArgCount": "Você não colocou todos os argumentos necessários para esse comando.",
+    "ObjectNotFound": "Objeto não encontrado.",
+    "UnknownCommand": "Comando não encontrado.",
+    "UnmetCondition": {
+      "GuildOnly": "Esse comando só pode ser utilizado em um servidor."
+    }
+  },
   "Mention": "",
-  "Image": {
-    "shibe":  ""
-  }   
+  "Modules": {
+    "Image": {
+      "shibe": ""
+    }
+  }
 }

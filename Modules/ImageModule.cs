@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 namespace ShibaBot.Modules {
     [Name("Image")]
+    [RequireContext(ContextType.Guild, ErrorMessage = "GuildOnly")]
     public class ImageModule : ModuleBase<SocketCommandContext> {
         [Command("shiba"), Alias("shibe")]
         public async Task ShibaAsync() {
@@ -29,7 +30,7 @@ namespace ShibaBot.Modules {
         public async Task AvatarAsync([Remainder] SocketUser user = null) {
             EmbedBuilder builder = new EmbedBuilder() {
                 ImageUrl = (user ?? Context.User).GetAvatarUrl(size: 1024),
-                Title = (user ?? Context.User).Username,
+                Title = (user ?? Context.User).ToString(),
                 Color = new Color(0xef9e19)
             };
 

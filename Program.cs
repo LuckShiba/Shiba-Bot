@@ -8,7 +8,7 @@ using Discord.Commands;
 namespace ShibaBot {
     class Program {
         static void Main() {
-            // => 
+            new Program().MainAsync().GetAwaiter().GetResult();
         }
 
         async Task MainAsync() {
