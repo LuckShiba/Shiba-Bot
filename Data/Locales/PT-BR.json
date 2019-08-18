@@ -1,17 +1,21 @@
 {
   "Errors": {
-    "BadArgCount": "VocÍ n„o colocou todos os argumentos necess·rios para esse comando.",
-    "ObjectNotFound": "Objeto n„o encontrado.",
-    "UnknownCommand": "Comando n„o encontrado.",
+    "BadArgCount": "Voc√™ n√£o colocou todos os argumentos necess√°rios para esse comando.",
+    "ObjectNotFound": "Objeto n√£o encontrado.",
+    "UnknownCommand": "Comando n√£o encontrado.",
     "UnmetCondition": {
-      "GuildOnly": "Esse comando sÛ pode ser utilizado em um servidor.",
-      "UserManageGuild": "VocÍ precisa da permiss„o `Gerenciar servidor` para poder usar esse comando."
+      "GuildOnly": "Esse comando s√≥ pode ser utilizado em um servidor.",
+      "UserManageGuild": "Voc√™ precisa da permiss√£o `Gerenciar servidor` para poder usar esse comando."
     }
   },
   "Mention": "",
   "Modules": {
     "Image": {
-      "shibe": ""
+      "shibe": "shibe.online"
+    },
+    "Configuration": {
+      "Locale": "L√≠ngua alterada para `$lang` com sucesso.",
+      "InvalidLocale": "Digite uma l√≠ngua v√°lida! (`pt-BR` ou `en-US`)"
     }
   }
 }

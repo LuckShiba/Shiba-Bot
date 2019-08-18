@@ -14,20 +14,14 @@ namespace ShibaBot.Singletons {
         public static async Task<LocalesModel> GetLanguageAsync(SocketCommandContext context) {
             if (!context.IsPrivate) {
                 switch ((await new GuildsDAO().LoadAsync(context.Guild.Id)).Locale) {
-                    case "en_US":
+                    case "en-US":
                         return en_US;
 
-                    case "pt_BR":
+                    case "pt-BR":
                         return pt_BR;
-
-                    default:
-                        return en_US;
                 }
             }
-
-            else {
-                return en_US;
-            }
+            return en_US;
         }
     }
 }

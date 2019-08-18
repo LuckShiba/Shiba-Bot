@@ -17,10 +17,16 @@
         }
         public class ModulesModel {
             public ImageModel Image { set; get; }
-        }
-        public class ImageModel {
-            public string Shibe { set; get; }
-        }
+            public ConfigurationModel Configuration { set; get; }
 
+            public class ImageModel {
+                public string Shibe { set; get; }
+            }
+
+            public class ConfigurationModel {
+                public string Locale { set; get; }
+                public string InvalidLocale { set; get; }
+            }
+        }
     }
 }

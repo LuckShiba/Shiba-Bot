@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using ShibaBot.Models;
 using System.Data.Common;
+using ShibaBot.Singletons;
+using Discord.Commands;
 
 namespace ShibaBot.Data.MySQL.DAO {
     public class GuildsDAO {
@@ -37,10 +39,12 @@ namespace ShibaBot.Data.MySQL.DAO {
             return guilds;
         }
 
-        public void UpdateLocale(ulong ID, string Locale) {
+        public async Task UpdateLocale(ulong ID, string Locale) {
             MySqlCommand query = new MySqlCommand("call UpdateLocale(@ID, @Locale)", connection);
             query.Parameters.AddWithValue("@ID", ID);
             query.Parameters.AddWithValue("@Locale", Locale);
+            await query.ExecuteNonQueryAsync();
+            query.Dispose();
         }
     }
 }
