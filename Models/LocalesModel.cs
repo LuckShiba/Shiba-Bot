@@ -15,13 +15,8 @@
             public string GuildOnly;
             public string UserManageGuild;
         }
-        public class ModulesModel {
-            public ImageModel Image { set; get; }
+        public class ModulesModel {    
             public ConfigurationModel Configuration { set; get; }
-
-            public class ImageModel {
-                public string Shibe { set; get; }
-            }
 
             public class ConfigurationModel {
                 public string Locale { set; get; }

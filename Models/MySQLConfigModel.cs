@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ShibaBot.Models {
+﻿namespace ShibaBot.Models {
     public class MySQLConfigModel {
-        public const uint ID = 1;
+        public uint ID;
         public string IP { get; private set; }
         public string Database { get; private set; }
         public string User { get; private set; }

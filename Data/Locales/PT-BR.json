@@ -10,9 +10,6 @@
   },
   "Mention": "",
   "Modules": {
-    "Image": {
-      "shibe": "shibe.online"
-    },
     "Configuration": {
       "Locale": "Língua alterada para `$lang` com sucesso.",
       "InvalidLocale": "Digite uma língua válida! (`pt-BR` ou `en-US`)"

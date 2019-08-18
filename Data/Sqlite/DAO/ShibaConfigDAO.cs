@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using System.Runtime.InteropServices;
+using Microsoft.Data.Sqlite;
 using ShibaBot.Models;
 using System;
 
@@ -9,7 +10,7 @@ namespace ShibaBot.Data.Sqlite.DAO {
         public ShibaConfigModel Load() {
             SqliteCommand query = connection.CreateCommand();
             query.CommandText += "select * from ShibaConfig where ID = @ID";
-            query.Parameters.AddWithValue("@ID", ShibaConfigModel.ID);
+            query.Parameters.AddWithValue("@ID", RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? 1 : 2);
 
             using (SqliteDataReader reader = query.ExecuteReader()) {
                 ShibaConfigModel shibaConfig = null;

@@ -5,8 +5,6 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using ShibaBot.Singletons;
-using ShibaBot.Models;
 
 namespace ShibaBot.Modules {
     [Name("Image")]
@@ -17,12 +15,10 @@ namespace ShibaBot.Modules {
             string jsonText = new WebClient().DownloadString("https://shibe.online/api/shibes");
             List<string> items = JsonConvert.DeserializeObject<List<string>>(jsonText);
 
-            LocalesModel language = await Language.GetLanguageAsync(Context);
-
             EmbedBuilder builder = new EmbedBuilder() {
                 ImageUrl = items[0],
                 Footer = new EmbedFooterBuilder() {
-                    Text = language.Modules.Image.Shibe
+                    Text = "shibe.online"
                 },
                 Color = new Color(0xef9e19)
             };

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ShibaBot.Models {
     public class ShibaConfigModel {
-        public const uint ID = 1;
+        public uint ID;
         public string Token { get; private set; }
         public ulong OwnerID { get; private set; }
 
