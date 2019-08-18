@@ -2,9 +2,9 @@
 using ShibaBot.Models;
 using System;
 
-namespace ShibaBot.Data.DAO {
+namespace ShibaBot.Data.Sqlite.DAO {
     public class ShibaConfigDAO {
-        private SqliteConnection connection = new ConnectionFactory().Connect();
+        private readonly SqliteConnection connection = new SqliteConnectionFactory().Connect();
 
         public ShibaConfigModel Load() {
             SqliteCommand query = connection.CreateCommand();

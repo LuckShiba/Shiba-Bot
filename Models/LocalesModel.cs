@@ -13,6 +13,7 @@
 
         public class UnmetConditionModel {
             public string GuildOnly;
+            public string UserManageGuild;
         }
         public class ModulesModel {
             public ImageModel Image { set; get; }

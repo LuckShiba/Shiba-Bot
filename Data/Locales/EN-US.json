@@ -1,16 +1,17 @@
 {
   "Errors": {
-    "BadArgCount": "",
-    "ObjectNotFound": "",
-    "UnknownCommand": "",
+    "BadArgCount": "Use this command direito",
+    "ObjectNotFound": "No achei nothing with these parameters.",
+    "UnknownCommand": "Esse command don't existe.",
     "UnmetCondition": {
-      "GuildOnly": ""
+      "GuildOnly": "Use esse command in a servidor ;-;",
+      "UserManageGuild": "You precisa the permission `Manage Guild` for use this command"
     }
   },
-  "Mention": "",
+  "Mention": "nao",
   "Modules": {
     "Image": {
-      "shibe": ""
+      "shibe": "Powered by shibe.online"
     }
   }
 }

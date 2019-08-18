@@ -1,14 +1,14 @@
 ﻿using Microsoft.Data.Sqlite;
 using ShibaBot.Models;
 
-namespace ShibaBot.Data.DAO {
+namespace ShibaBot.Data.Sqlite.DAO {
     public class MySQLConfigDAO {
-        private SqliteConnection connection = new ConnectionFactory().Connect();
+        private SqliteConnection connection = new SqliteConnectionFactory().Connect();
 
         public MySQLConfigModel Load() {
             SqliteCommand query = connection.CreateCommand();
             query.CommandText += "select * from MySQLConfig where ID = @ID";
-            query.Parameters.AddWithValue("@id", MySQLConfigModel.ID);
+            query.Parameters.AddWithValue("@ID", MySQLConfigModel.ID);
 
             using (SqliteDataReader reader = query.ExecuteReader()) {
                 MySQLConfigModel mySQLConfig= null;

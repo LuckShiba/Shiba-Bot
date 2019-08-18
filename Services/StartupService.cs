@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Reflection;
-using ShibaBot.Data.DAO;
+using ShibaBot.Data.Sqlite.DAO;
 using Discord.WebSocket;
 using Discord.Commands;
 using Discord;
