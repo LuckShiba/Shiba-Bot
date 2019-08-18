@@ -1,18 +1,18 @@
 {
   "Errors": {
-    "BadArgCount": "Você não colocou todos os argumentos necessários para esse comando.",
-    "ObjectNotFound": "Objeto não encontrado.",
-    "UnknownCommand": "Comando não encontrado.",
+    "BadArgCount": "Você não colocou todos os parâmetros necessários para esse comando.",
+    "ObjectNotFound": "Não achei nada com esses parâmetros.",
+    "UnknownCommand": "Esse comando não existe.",
     "UnmetCondition": {
       "GuildOnly": "Esse comando só pode ser utilizado em um servidor.",
       "UserManageGuild": "Você precisa da permissão `Gerenciar servidor` para poder usar esse comando."
     }
   },
-  "Mention": "",
+  "Mention": "Meu prefixo é `sh!`",
   "Modules": {
     "Configuration": {
-      "Locale": "Língua alterada para `$lang` com sucesso.",
-      "InvalidLocale": "Digite uma língua válida! (`pt-BR` ou `en-US`)"
+      "Locale": "Linguagem alterada para `$lang` com sucesso.",
+      "InvalidLocale": "Digite uma linguagem válida! (`pt-BR` ou `en-US`)"
     }
   }
 }

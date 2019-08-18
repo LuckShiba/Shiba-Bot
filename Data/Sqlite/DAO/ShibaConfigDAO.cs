@@ -10,7 +10,7 @@ namespace ShibaBot.Data.Sqlite.DAO {
         public ShibaConfigModel Load() {
             SqliteCommand query = connection.CreateCommand();
             query.CommandText += "select * from ShibaConfig where ID = @ID";
-            query.Parameters.AddWithValue("@ID", RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? 1 : 2);
+            query.Parameters.AddWithValue("@ID", RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? 1 : 2);
 
             using (SqliteDataReader reader = query.ExecuteReader()) {
                 ShibaConfigModel shibaConfig = null;

@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using ShibaBot.Singletons;
 
 namespace ShibaBot.Modules {
     [Name("Image")]
@@ -20,7 +21,7 @@ namespace ShibaBot.Modules {
                 Footer = new EmbedFooterBuilder() {
                     Text = "shibe.online"
                 },
-                Color = new Color(0xef9e19)
+                Color = Utils.embedColor
             };
 
             await Context.Channel.SendMessageAsync(embed: builder.Build());
@@ -31,7 +32,7 @@ namespace ShibaBot.Modules {
             EmbedBuilder builder = new EmbedBuilder() {
                 ImageUrl = (user ?? Context.User).GetAvatarUrl(size: 1024),
                 Title = (user ?? Context.User).ToString(),
-                Color = new Color(0xef9e19)
+                Color = Utils.embedColor
             };
 
             await Context.Channel.SendMessageAsync(embed: builder.Build());

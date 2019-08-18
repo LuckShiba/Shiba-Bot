@@ -1,18 +1,18 @@
 {
   "Errors": {
-    "BadArgCount": "Use this command direito",
-    "ObjectNotFound": "No achei nothing with these parameters.",
-    "UnknownCommand": "Esse command don't existe.",
+    "BadArgCount": "You didn't put all the necessary parameters for this command.",
+    "ObjectNotFound": "I don't find nothing with these parameters.",
+    "UnknownCommand": "This command doesn't exist.",
     "UnmetCondition": {
-      "GuildOnly": "Use esse command in a servidor ;-;",
-      "UserManageGuild": "You precisa the permission `Manage Guild` for use this command"
+      "GuildOnly": "This command can only be used in a guild.",
+      "UserManageGuild": "You need the `Manage Guild` permission to use this command."
     }
   },
-  "Mention": "nao",
+  "Mention": "My prefix is `sh!`",
   "Modules": {
     "Configuration": {
-      "Locale": "Língua sucessfully changed to `$lang`.",
-      "InvalidLocale": "Digite a valid lingua! (`pt-BR` or `en-US`)"
+      "Locale": "Language changed to `$lang` successfully.",
+      "InvalidLocale": "Enter a valid language! (`pt-BR` or `en-US`)"
     }
   }
 }
