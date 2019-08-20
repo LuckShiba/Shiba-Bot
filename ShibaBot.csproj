@@ -16,10 +16,10 @@
     <None Update="Data\Sqlite\LocalDB.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Data\Locales\EN-US.json">
+    <None Update="Data\Locales\en-US.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Data\Locales\PT-BR.json">
+    <None Update="Data\Locales\pt-BR.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

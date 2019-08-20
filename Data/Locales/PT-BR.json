@@ -1,6 +1,6 @@
 {
   "Errors": {
-    "BadArgCount": "Você não colocou todos os parâmetros necessários para esse comando.",
+    "BadArgCount": "Você usou esse comando de forma errada!",
     "ObjectNotFound": "Não achei nada com esses parâmetros.",
     "UnmetCondition": {
       "GuildOnly": "Esse comando só pode ser utilizado em um servidor.",
@@ -16,5 +16,19 @@
       "Locale": "Linguagem alterada para `$lang` com sucesso.",
       "InvalidLocale": "Digite uma linguagem válida! (`pt-BR` ou `en-US`)"
     }
+  },
+  "CommandsUse": {
+    "CommandUse": "Uso do comando:",
+    "Example": "Exemplo:",
+    "shiba": "`shiba shiba`",
+    "shibabomb": "`shiba shibabomb`",
+    "avatar": [
+      "`shiba avatar [membro]`",
+      "`shiba avatar LuckShiba`"
+    ],
+    "locale": [
+      "`shiba locale (pt-BR/en-US)`",
+      "`shiba locale pt-BR`"
+    ]
   }
 }

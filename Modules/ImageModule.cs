@@ -13,7 +13,9 @@ namespace ShibaBot.Modules {
     public class ImageModule : ModuleBase<CommandContext> {
         [Command("shiba"), Alias("shibe")]
         public async Task ShibaAsync() {
-            string jsonText = new WebClient().DownloadString("https://shibe.online/api/shibes");
+            WebClient webClient = new WebClient();
+            string jsonText = webClient.DownloadString("https://shibe.online/api/shibes");
+            webClient.Dispose();
             List<string> items = JsonConvert.DeserializeObject<List<string>>(jsonText);
 
             EmbedBuilder builder = new EmbedBuilder() {
@@ -25,6 +27,15 @@ namespace ShibaBot.Modules {
             };
 
             await Context.Channel.SendMessageAsync(embed: builder.Build());
+        }
+
+        [Command("shibabomb"), Alias("shibebomb", "shibasbomb", "shibesbomb")]
+        public async Task ShibaBombAsync() {
+            WebClient webClient = new WebClient();
+            string jsonText = webClient.DownloadString("https://shibe.online/api/shibes?count=5");
+            webClient.Dispose();
+
+            await Context.Channel.SendMessageAsync(string.Join('\n', JsonConvert.DeserializeObject<List<string>>(jsonText)));
         }
 
         [Command("avatar"), Alias("pfp")]

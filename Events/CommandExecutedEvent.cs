@@ -2,6 +2,7 @@
 using Discord.Commands;
 using ShibaBot.Singletons;
 using ShibaBot.Models;
+using ShibaBot.Extensions;
 using Discord;
 
 namespace ShibaBot.Events {
@@ -30,12 +31,13 @@ namespace ShibaBot.Events {
                         break;
                     case CommandError.BadArgCount:
                         builder.Title = locales.Errors.BadArgCount;
+                        new CommandUseExtension().GetCommandUse(ref builder, locales, command.Value);
                         await context.Channel.SendMessageAsync(embed: builder.Build());
 
-                        // TODO: Uso do comando.
                         break;
                     case CommandError.ObjectNotFound:
                         builder.Title = locales.Errors.ObjectNotFound;
+                        new CommandUseExtension().GetCommandUse(ref builder, locales, command.Value);
                         await context.Channel.SendMessageAsync(embed: builder.Build());
                         break;
                     default:

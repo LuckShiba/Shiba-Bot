@@ -19,7 +19,7 @@ namespace ShibaBot.Services {
             _commands.Log += LogAsync;
         }
 
-        private async Task LogAsync (LogMessage log) {
+        private async Task LogAsync(LogMessage log) {
             if (log.Exception is CommandException exception) {
                 CommandContext context = (CommandContext)exception.Context;
 
@@ -32,9 +32,19 @@ namespace ShibaBot.Services {
             }
 
             else {
+                if (log.Severity == LogSeverity.Warning || log.Severity == LogSeverity.Error || log.Severity == LogSeverity.Critical) {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+
+                else if (log.Severity == LogSeverity.Info) {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                }
+
                 string logMessage = $"{DateTime.Now.ToString("hh:mm:ss")} [{log.Severity}] {log.Source}: {log.Exception?.ToString() ?? log.Message}";
 
                 Console.WriteLine(logMessage);
+
+                Console.ResetColor();
             }
         }
     }

@@ -1,4 +1,7 @@
 ﻿using Discord;
+using ShibaBot.Models;
+using Discord.Commands;
+
 
 namespace ShibaBot.Singletons {
     public static class Utils {
