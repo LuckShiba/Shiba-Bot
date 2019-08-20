@@ -13,7 +13,7 @@ namespace ShibaBot.Modules {
         public async Task LocaleAsync(string locale) {
             GuildsDAO guilds = new GuildsDAO();
             LocalesModel.ModulesModel.ConfigurationModel language = (await Language.GetLanguageAsync(Context)).Modules.Configuration;
-
+            
             EmbedBuilder builder = new EmbedBuilder() { Color = Utils.embedColor };
             switch (locale.ToLower()) {
                 case "pt-br":
