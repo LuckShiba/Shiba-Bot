@@ -2,7 +2,6 @@
   "Errors": {
     "BadArgCount": "You didn't put all the necessary parameters for this command.",
     "ObjectNotFound": "I don't find nothing with these parameters.",
-    "UnknownCommand": "This command doesn't exist.",
     "UnmetCondition": {
       "GuildOnly": "This command can only be used in a guild.",
       "UserManageGuild": "You need the `Manage Guild` permission to use this command."

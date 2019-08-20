@@ -7,7 +7,6 @@
         public class ErrorsModel {
             public string BadArgCount { set; get; }
             public string ObjectNotFound { set; get; }
-            public string UnknownCommand { set; get; }
             public UnmetConditionModel UnmetCondition { set; get; }
             public ForbiddenModel Forbidden { set; get; }
 

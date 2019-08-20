@@ -51,6 +51,7 @@ namespace ShibaBot.Services {
                                     await context.Channel.SendMessageAsync(embed: builder.Build());
                                     break;
                                 case "UserManageGuild":
+                                    builder.Title = locales.Errors.UnmetCondition.UserManageGuild;
                                     await context.Channel.SendMessageAsync(embed: builder.Build());
                                     break;
                                 default:
