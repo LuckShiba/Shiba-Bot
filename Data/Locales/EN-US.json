@@ -6,6 +6,9 @@
     "UnmetCondition": {
       "GuildOnly": "This command can only be used in a guild.",
       "UserManageGuild": "You need the `Manage Guild` permission to use this command."
+    },
+    "Forbidden": {
+      "EmbedLinks": "I need the `Embed links` permission for this command."
     }
   },
   "Mention": "My prefix is `sh!`",

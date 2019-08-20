@@ -6,6 +6,9 @@
     "UnmetCondition": {
       "GuildOnly": "Esse comando só pode ser utilizado em um servidor.",
       "UserManageGuild": "Você precisa da permissão `Gerenciar servidor` para poder usar esse comando."
+    },
+    "Forbidden": {
+      "EmbedLinks": "Eu preciso da permissão `Inserir links` para esse comando."
     }
   },
   "Mention": "Meu prefixo é `sh!`",

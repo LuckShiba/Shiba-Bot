@@ -9,12 +9,18 @@
             public string ObjectNotFound { set; get; }
             public string UnknownCommand { set; get; }
             public UnmetConditionModel UnmetCondition { set; get; }
+            public ForbiddenModel Forbidden { set; get; }
+
+            public class UnmetConditionModel {
+                public string GuildOnly;
+                public string UserManageGuild;
+            }
+
+            public class ForbiddenModel {
+                public string EmbedLinks { set; get; }
+            }
         }
 
-        public class UnmetConditionModel {
-            public string GuildOnly;
-            public string UserManageGuild;
-        }
         public class ModulesModel {    
             public ConfigurationModel Configuration { set; get; }
 

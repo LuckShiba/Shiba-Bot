@@ -10,7 +10,7 @@ using ShibaBot.Singletons;
 namespace ShibaBot.Modules {
     [Name("Image")]
     [RequireContext(ContextType.Guild, ErrorMessage = "GuildOnly")]
-    public class ImageModule : ModuleBase<SocketCommandContext> {
+    public class ImageModule : ModuleBase<CommandContext> {
         [Command("shiba"), Alias("shibe")]
         public async Task ShibaAsync() {
             string jsonText = new WebClient().DownloadString("https://shibe.online/api/shibes");

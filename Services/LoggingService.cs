@@ -2,6 +2,8 @@
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using ShibaBot.Models;
+using ShibaBot.Singletons;
 using System.Threading.Tasks;
 
 namespace ShibaBot.Services {
@@ -17,10 +19,23 @@ namespace ShibaBot.Services {
             _commands.Log += LogAsync;
         }
 
-        private Task LogAsync (LogMessage log) {
-            string logMessage = $"{DateTime.Now.ToString("hh:mm:ss")} [{log.Severity}] {log.Source}: {log.Exception?.ToString() ?? log.Message}";
+        private async Task LogAsync (LogMessage log) {
+            if (log.Exception is CommandException exception) {
+                CommandContext context = (CommandContext)exception.Context;
 
-            return Console.Out.WriteLineAsync(logMessage);
+                LocalesModel.ErrorsModel locales = (await Language.GetLanguageAsync(context)).Errors;
+                if (!context.IsPrivate) {
+                    if (!(await context.Guild.GetCurrentUserAsync()).GetPermissions((IGuildChannel)context.Channel).EmbedLinks && (await context.Guild.GetCurrentUserAsync()).GetPermissions((IGuildChannel)context.Channel).SendMessages) {
+                        await context.Channel.SendMessageAsync(locales.Forbidden.EmbedLinks);
+                    }
+                }
+            }
+
+            else {
+                string logMessage = $"{DateTime.Now.ToString("hh:mm:ss")} [{log.Severity}] {log.Source}: {log.Exception?.ToString() ?? log.Message}";
+
+                Console.WriteLine(logMessage);
+            }
         }
     }
 }

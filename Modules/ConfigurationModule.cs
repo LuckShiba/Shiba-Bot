@@ -8,7 +8,7 @@ using Discord;
 namespace ShibaBot.Modules {
     [Name("Configuration")]
     [RequireUserPermission(Discord.GuildPermission.ManageGuild, ErrorMessage="UserManageGuild")]
-    public class ConfigurationModule: ModuleBase<SocketCommandContext> {
+    public class ConfigurationModule: ModuleBase<CommandContext> {
         [Command("locale"), Alias("language", "lang")]
         public async Task LocaleAsync(string locale) {
             GuildsDAO guilds = new GuildsDAO();
