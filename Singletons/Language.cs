@@ -13,7 +13,7 @@ namespace ShibaBot.Singletons {
 
         public static async Task<LocalesModel> GetLanguageAsync(CommandContext context) {
             if (!context.IsPrivate) {
-                switch ((await new GuildsDAO().LoadAsync(context.Guild.Id)).Locale) {
+                switch (await new GuildsDAO().GetLocaleAsync(context.Guild.Id)) {
                     case "en-US":
                         return en_US;
 

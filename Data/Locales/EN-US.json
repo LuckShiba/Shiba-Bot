@@ -10,25 +10,33 @@
       "EmbedLinks": "I need the `Embed links` permission for this command."
     }
   },
-  "Mention": "My prefix is `sh!`",
+  "Mention": "My prefix on this server is `$prefix`.",
+  "MentionDM":  "My prefix is `shiba `.",
   "Modules": {
     "Configuration": {
       "Locale": "Language changed to `$lang` successfully.",
-      "InvalidLocale": "Enter a valid language! (`pt-BR` or `en-US`)"
+      "InvalidLocale": "Enter a valid language!",
+      "Prefix": "This server's prefix changed to `$prefix` successfully.",
+      "InvalidPrefix": "Enter a prefix of less than 10 characters!"
     }
   },
   "CommandsUse": {
     "CommandUse": "Command use:",
     "Example": "Example:",
-    "shiba": "`shiba shiba`",
-    "shibabomb": "`shiba shibabomb`",
+    "shiba": "`$prefixshiba`",
+    "shibabomb": "`$prefixshibabomb`",
     "avatar": [
-      "`shiba avatar [member]`",
-      "`shiba avatar LuckShiba`"
+      "`$prefixavatar [member]`",
+      "`$prefixavatar LuckShiba`"
     ],
     "locale": [
-      "`shiba locale (pt-BR/en-US)`",
-      "`shiba locale en-US`"
+      "`$prefixlocale (pt-BR/en-US)`",
+      "`$prefixlocale en-US`"
+    ],
+    "setprefix": [
+      "`$prefixsetprefix (prefix)`",
+      "`$prefixsetprefix sh!`",
+      "`$prefixsetprefix shiba cmd` (use `cmd` at the end if prefix ends with a space)"
     ]
   }
 }

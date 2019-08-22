@@ -10,25 +10,33 @@
       "EmbedLinks": "Eu preciso da permissão `Inserir links` para esse comando."
     }
   },
-  "Mention": "Meu prefixo é `sh!`",
+  "Mention": "Meu prefixo nesse servidor é `$prefix`.",
+  "MentionDM":  "Meu prefixo é `shiba `.",
   "Modules": {
     "Configuration": {
       "Locale": "Linguagem alterada para `$lang` com sucesso.",
-      "InvalidLocale": "Digite uma linguagem válida! (`pt-BR` ou `en-US`)"
+      "InvalidLocale": "Digite uma linguagem válida!",
+      "Prefix": "Prefixo desse servidor alterado para `$prefix` com sucesso.",
+      "InvalidPrefix": "Digite um prefixo com menos de 10 caracteres!"
     }
   },
   "CommandsUse": {
     "CommandUse": "Uso do comando:",
     "Example": "Exemplo:",
-    "shiba": "`shiba shiba`",
-    "shibabomb": "`shiba shibabomb`",
+    "shiba": "`$prefixshiba`",
+    "shibabomb": "`$prefixshibabomb`",
     "avatar": [
-      "`shiba avatar [membro]`",
-      "`shiba avatar LuckShiba`"
+      "`$prefixavatar [membro]`",
+      "`$prefixavatar\n$prefixavatar LuckShiba`"
     ],
     "locale": [
-      "`shiba locale (pt-BR/en-US)`",
-      "`shiba locale pt-BR`"
+      "`$prefixlocale (pt-BR/en-US)`",
+      "`$prefixlocale pt-BR`"
+    ],
+    "setprefix": [
+      "`$prefixsetprefix (prefixo)`",
+      "`$prefixsetprefix sh!`",
+      "`$prefixsetprefix shiba cmd` (use `cmd` no final caso o prefixo termine com um espaço)"
     ]
   }
 }

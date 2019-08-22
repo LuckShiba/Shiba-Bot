@@ -9,7 +9,6 @@ using ShibaBot.Singletons;
 
 namespace ShibaBot.Modules {
     [Name("Image")]
-    [RequireContext(ContextType.Guild, ErrorMessage = "GuildOnly")]
     public class ImageModule : ModuleBase<CommandContext> {
         [Command("shiba"), Alias("shibe")]
         public async Task ShibaAsync() {

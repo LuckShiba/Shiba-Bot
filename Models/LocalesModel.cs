@@ -4,6 +4,7 @@ namespace ShibaBot.Models {
     public  class LocalesModel {
         public ErrorsModel Errors { set; get; }
         public string Mention { set; get; }
+        public string MentionDM { set; get; }
         public ModulesModel Modules { set; get; }
         public CommandsUseModel CommandsUse { set; get; }
 
@@ -29,6 +30,8 @@ namespace ShibaBot.Models {
             public class ConfigurationModel {
                 public string Locale { set; get; }
                 public string InvalidLocale { set; get; }
+                public string Prefix { set; get; }
+                public string InvalidPrefix { set; get; }
             }
         }
         public class CommandsUseModel {
@@ -38,6 +41,7 @@ namespace ShibaBot.Models {
             public string shibabomb { set; get; }
             public List<string> avatar { set; get; }
             public List<string> locale { set; get; }
+            public List<string> setprefix { set; get; }
         }
     }
 }
