@@ -11,7 +11,7 @@
     }
   },
   "Mention": "My prefix on this server is `$prefix`.",
-  "MentionDM":  "My prefix is `shiba `.",
+  "MentionDM":  "My prefix is `shiba \u200b`.",
   "Modules": {
     "Configuration": {
       "Locale": "Language changed to `$lang` successfully.",

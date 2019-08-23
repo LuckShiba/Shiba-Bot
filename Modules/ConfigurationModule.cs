@@ -49,17 +49,18 @@ namespace ShibaBot.Modules {
                 for (int i = 0; i <= prefixs.Length - 2; i++) {
                     prefix += $"{prefixs[i]} ";
                 }
+            }
 
-                if (prefix.Length <= 10) {
-                    await new GuildsDAO().UpdatePrefixAsync(Context.Guild.Id, prefix);
-                    builder.Title = locales.Modules.Configuration.Prefix.Replace("$prefix", prefix);
-                    await Context.Channel.SendMessageAsync(embed: builder.Build());
-                }
-                else {
-                    builder.Title = locales.Modules.Configuration.InvalidPrefix;
-                    new CommandUseExtension().EmbedCommandUse(ref builder, locales, "setprefix", await new GuildsDAO().GetPrefixAsync(Context.Guild.Id));
-                    await Context.Channel.SendMessageAsync(embed: builder.Build());
-                }
+            if (prefix.Length <= 10) {
+                await new GuildsDAO().UpdatePrefixAsync(Context.Guild.Id, prefix);
+                if (prefix.EndsWith(' ')) { prefix += "\u200b"; }
+                builder.Title = locales.Modules.Configuration.Prefix.Replace("$prefix", prefix);
+                await Context.Channel.SendMessageAsync(embed: builder.Build());
+            }
+            else {
+                builder.Title = locales.Modules.Configuration.InvalidPrefix;
+                new CommandUseExtension().EmbedCommandUse(ref builder, locales, "setprefix", await new GuildsDAO().GetPrefixAsync(Context.Guild.Id));
+                await Context.Channel.SendMessageAsync(embed: builder.Build());
             }
         }
     }
