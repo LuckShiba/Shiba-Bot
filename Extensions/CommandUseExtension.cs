@@ -1,5 +1,5 @@
-﻿using Discord;
-using Discord.Commands;
+﻿using System;
+using Discord;
 using ShibaBot.Models;
 
 namespace ShibaBot.Extensions {
@@ -9,29 +9,41 @@ namespace ShibaBot.Extensions {
 
             switch (commandName) {
                 case "shiba":
-                    builder.AddField(new EmbedFieldBuilder { IsInline = false, Name = Format(commandsUse.CommandUse, guildPrefix), Value = Format(commandsUse.shiba, guildPrefix)});
+                    AddFields(ref builder, guildPrefix,
+                        NewField(commandsUse.CommandUse, commandsUse.shiba));
                     break;
                 case "shibabomb":
-                    builder.AddField(new EmbedFieldBuilder { IsInline = false, Name = Format(commandsUse.CommandUse, guildPrefix), Value = Format(commandsUse.shibabomb, guildPrefix) });
+                    AddFields(ref builder, guildPrefix,
+                        NewField(commandsUse.CommandUse, commandsUse.shibabomb));
                     break;
                 case "avatar":
-                    builder.AddField(new EmbedFieldBuilder { IsInline = false, Name = Format(commandsUse.CommandUse, guildPrefix), Value = Format(commandsUse.avatar[0], guildPrefix) });
-                    builder.AddField(new EmbedFieldBuilder { IsInline = false, Name = Format(commandsUse.Example, guildPrefix), Value = Format(commandsUse.avatar[1], guildPrefix) });
+                    AddFields(ref builder, guildPrefix,
+                        NewField(commandsUse.CommandUse, commandsUse.avatar[0]),
+                        NewField(commandsUse.Examples, commandsUse.avatar[1]));
+                    break;
+                case "husky":
+                    AddFields(ref builder, guildPrefix,
+                        NewField(commandsUse.CommandUse, commandsUse.husky));
                     break;
                 case "locale":
-                    builder.AddField(new EmbedFieldBuilder { IsInline = false, Name = Format(commandsUse.CommandUse, guildPrefix), Value = Format(commandsUse.locale[0], guildPrefix) });
-                    builder.AddField(new EmbedFieldBuilder { IsInline = false, Name = Format(commandsUse.Example, guildPrefix), Value = Format(commandsUse.locale[1], guildPrefix) });
+                    AddFields(ref builder, guildPrefix,
+                        NewField(commandsUse.CommandUse, commandsUse.locale[0]),
+                        NewField(commandsUse.Example, commandsUse.locale[1]));
                     break;
                 case "setprefix":
-                    builder.AddField(new EmbedFieldBuilder { IsInline = false, Name = Format(commandsUse.CommandUse, guildPrefix), Value = Format(commandsUse.setprefix[0], guildPrefix) });
-                    builder.AddField(new EmbedFieldBuilder { IsInline = false, Name = Format(commandsUse.Example, guildPrefix), Value = Format(commandsUse.setprefix[1], guildPrefix) });
-                    builder.AddField(new EmbedFieldBuilder { IsInline = false, Name = Format(commandsUse.Example, guildPrefix), Value = Format(commandsUse.setprefix[2], guildPrefix) });
+                    AddFields(ref builder, guildPrefix,
+                        NewField(commandsUse.CommandUse, commandsUse.setprefix[0]),
+                        NewField(commandsUse.Examples, commandsUse.setprefix[1]));
                     break;
             }
         }
-
-        private static string Format(string original, string guildPrefix) {
-            return original.Replace("$prefix", guildPrefix);
+        private Tuple<string, string> NewField(string name, string value) {
+            return new Tuple<string, string>(name, value);
+        }
+        private void AddFields(ref EmbedBuilder builder, string guildPrefix, params Tuple<string, string>[] fields) {
+            foreach(Tuple<string, string> field in fields) {
+                builder.AddField(field.Item1, field.Item2.Replace("$prefix", guildPrefix));
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace ShibaBot.Data.Sqlite.DAO {
     public class MySQLConfigDAO {
-        private SqliteConnection connection = new SqliteConnectionFactory().Connect();
+        private SqliteConnection connection = SqliteConnectionFactory.Connect();
 
         public MySQLConfigModel Load() {
             SqliteCommand query = connection.CreateCommand();

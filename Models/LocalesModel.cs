@@ -37,9 +37,11 @@ namespace ShibaBot.Models {
         public class CommandsUseModel {
             public string CommandUse { set; get; }
             public string Example { set; get; }
+            public string Examples { set; get; }
             public string shiba { set; get; }
             public string shibabomb { set; get; }
             public List<string> avatar { set; get; }
+            public string husky { set; get; }
             public List<string> locale { set; get; }
             public List<string> setprefix { set; get; }
         }

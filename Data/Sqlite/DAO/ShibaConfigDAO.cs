@@ -5,7 +5,7 @@ using System;
 
 namespace ShibaBot.Data.Sqlite.DAO {
     public class ShibaConfigDAO {
-        private readonly SqliteConnection connection = new SqliteConnectionFactory().Connect();
+        private readonly SqliteConnection connection = SqliteConnectionFactory.Connect();
 
         public ShibaConfigModel Load() {
             SqliteCommand query = connection.CreateCommand();

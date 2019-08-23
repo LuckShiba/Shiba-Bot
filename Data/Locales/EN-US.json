@@ -23,20 +23,21 @@
   "CommandsUse": {
     "CommandUse": "Command use:",
     "Example": "Example:",
+    "Examples": "Examples",
     "shiba": "`$prefixshiba`",
     "shibabomb": "`$prefixshibabomb`",
     "avatar": [
       "`$prefixavatar [member]`",
-      "`$prefixavatar LuckShiba`"
+      "`$prefixavatar\n$prefixavatar LuckShiba`"
     ],
+    "husky": "$prefixhusky",
     "locale": [
       "`$prefixlocale (pt-BR/en-US)`",
       "`$prefixlocale en-US`"
     ],
     "setprefix": [
       "`$prefixsetprefix (prefix)`",
-      "`$prefixsetprefix sh!`",
-      "`$prefixsetprefix shiba cmd` (use `cmd` at the end if prefix ends with a space)"
+      "`$prefixsetprefix sh!`\n`$prefixsetprefix shiba cmd` (use `cmd` at the end if prefix ends with a space)"
     ]
   }
 }
