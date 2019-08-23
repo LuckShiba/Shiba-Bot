@@ -18,9 +18,9 @@ namespace ShibaBot.Modules {
             webClient.Dispose();
             List<string> items = JsonConvert.DeserializeObject<List<string>>(jsonText);
 
-            EmbedBuilder builder = new EmbedBuilder() {
+            EmbedBuilder builder = new EmbedBuilder {
                 ImageUrl = items[0],
-                Footer = new EmbedFooterBuilder() {
+                Footer = new EmbedFooterBuilder {
                     Text = "shibe.online"
                 },
                 Color = Utils.embedColor
@@ -40,7 +40,7 @@ namespace ShibaBot.Modules {
 
         [Command("avatar"), Alias("pfp")]
         public async Task AvatarAsync([Remainder] SocketUser user = null) {
-            EmbedBuilder builder = new EmbedBuilder() {
+            EmbedBuilder builder = new EmbedBuilder {
                 ImageUrl = (user ?? Context.User).GetAvatarUrl(size: 1024),
                 Title = (user ?? Context.User).ToString(),
                 Color = Utils.embedColor
@@ -56,9 +56,9 @@ namespace ShibaBot.Modules {
             webClient.Dispose();
             string url = JsonConvert.DeserializeObject<DogCEOModel>(jsonText).message;
 
-            EmbedBuilder builder = new EmbedBuilder() {
+            EmbedBuilder builder = new EmbedBuilder {
                 ImageUrl = url,
-                Footer = new EmbedFooterBuilder() {
+                Footer = new EmbedFooterBuilder {
                     Text = "dog.ceo"
                 },
                 Color = Utils.embedColor

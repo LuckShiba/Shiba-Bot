@@ -28,8 +28,6 @@ namespace ShibaBot.Events {
                                 builder.Title = locales.Errors.UnmetCondition.UserManageGuild;
                                 await context.Channel.SendMessageAsync(embed: builder.Build());
                                 break;
-                            default:
-                                break;
                         }
                         break;
                     case CommandError.BadArgCount:
@@ -41,8 +39,6 @@ namespace ShibaBot.Events {
                         builder.Title = locales.Errors.ObjectNotFound;
                         new CommandUseExtension().EmbedCommandUse(ref builder, locales, command.Value.Name, (context as CommandContext).IsPrivate ? "shiba " : await new GuildsDAO().GetPrefixAsync(context.Guild.Id));
                         await context.Channel.SendMessageAsync(embed: builder.Build());
-                        break;
-                    default:
                         break;
                 }
             }
