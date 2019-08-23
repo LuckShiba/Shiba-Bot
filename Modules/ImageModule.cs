@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using ShibaBot.Singletons;
+using ShibaBot.Models;
 
 namespace ShibaBot.Modules {
     [Name("Image")]
@@ -42,6 +43,24 @@ namespace ShibaBot.Modules {
             EmbedBuilder builder = new EmbedBuilder() {
                 ImageUrl = (user ?? Context.User).GetAvatarUrl(size: 1024),
                 Title = (user ?? Context.User).ToString(),
+                Color = Utils.embedColor
+            };
+
+            await Context.Channel.SendMessageAsync(embed: builder.Build());
+        }
+
+        [Command("husky")]
+        public async Task HuskyAsync() {
+            WebClient webClient = new WebClient();
+            string jsonText = webClient.DownloadString("https://dog.ceo/api/breed/husky/images/random");
+            webClient.Dispose();
+            string url = JsonConvert.DeserializeObject<DogCEOModel>(jsonText).message;
+
+            EmbedBuilder builder = new EmbedBuilder() {
+                ImageUrl = url,
+                Footer = new EmbedFooterBuilder() {
+                    Text = "dog.ceo"
+                },
                 Color = Utils.embedColor
             };
 
