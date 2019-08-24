@@ -24,8 +24,9 @@ namespace ShibaBot.Models {
             }
         }
 
-        public class ModulesModel {    
+        public class ModulesModel {
             public ConfigurationModel Configuration { set; get; }
+            public HelpModel Help { set; get; }
 
             public class ConfigurationModel {
                 public string Locale { set; get; }
@@ -33,17 +34,30 @@ namespace ShibaBot.Models {
                 public string Prefix { set; get; }
                 public string InvalidPrefix { set; get; }
             }
+
+            public class HelpModel {
+                public string Help { set; get; }
+                public string ModulesEmbed { set; get; }
+                public string Commands { set; get; }
+                public List<ModuleModel> Modules { set; get; }
+                public class ModuleModel {
+                    public string Name { set; get; }
+                    public List<string> Commands { set; get; }
+                    public string Description { set; get; }
+                    public string Emoji { set; get; }
+                }
+            }
         }
         public class CommandsUseModel {
             public string CommandUse { set; get; }
             public string Example { set; get; }
             public string Examples { set; get; }
-            public string shiba { set; get; }
-            public string shibabomb { set; get; }
-            public List<string> avatar { set; get; }
-            public string husky { set; get; }
-            public List<string> locale { set; get; }
-            public List<string> setprefix { set; get; }
+            public List<CommandsModel> Commands { set; get; }
+            public class CommandsModel {
+                public string Name { set; get; }
+                public int Use { set; get; }
+                public List<string> Strings { set; get; }
+            }
         }
     }
 }

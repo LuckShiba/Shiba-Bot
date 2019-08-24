@@ -11,33 +11,101 @@
     }
   },
   "Mention": "Meu prefixo nesse servidor é `$prefix`.",
-  "MentionDM":  "Meu prefixo é `shiba \u200b`.",
+  "MentionDM": "Meu prefixo é `shiba \u200b`.",
   "Modules": {
     "Configuration": {
       "Locale": "Linguagem alterada para `$lang` com sucesso.",
       "InvalidLocale": "Digite uma linguagem válida!",
       "Prefix": "Prefixo desse servidor alterado para `$prefix` com sucesso.",
       "InvalidPrefix": "Digite um prefixo com menos de 10 caracteres!"
+    },
+    "Help": {
+      "Help": "Para ver os comandos de um módulo use `$prefixhelp módulo`.",
+      "ModulesEmbed": "Módulos:",
+      "Commands": "Comandos:",
+      "Modules": [
+        {
+          "Name": "Configuração",
+          "Commands": [
+            "setprefix",
+            "locale"
+          ],
+          "Description": "Configurações do servidor.",
+          "Emoji": "\u2699"
+        },
+        {
+          "Name": "Imagens",
+          "Commands": [
+            "shiba",
+            "shibabomb",
+            "avatar",
+            "husky"
+          ],
+          "Description": "Comandos de imagens.",
+          "Emoji": "\uD83D\uDDBC"
+        }
+      ]
     }
   },
   "CommandsUse": {
     "CommandUse": "Uso do comando:",
     "Example": "Exemplo:",
     "Examples": "Exemplos:",
-    "shiba": "`$prefixshiba`",
-    "shibabomb": "`$prefixshibabomb`",
-    "avatar": [
-      "`$prefixavatar [membro]`",
-      "`$prefixavatar\n$prefixavatar LuckShiba`"
-    ],
-    "husky": "$prefixhusky",
-    "locale": [
-      "`$prefixlocale (pt-BR/en-US)`",
-      "`$prefixlocale pt-BR`"
-    ],
-    "setprefix": [
-      "`$prefixsetprefix (prefixo)`",
-      "`$prefixsetprefix sh!`\n`$prefixsetprefix shiba cmd` (use `cmd` no final caso o prefixo termine com um espaço)"
+    "Commands": [
+      {
+        "Name": "shiba",
+        "Use": 1,
+        "Strings": [
+          "$prefixshiba"
+        ]
+      },
+      {
+        "Name": "shibabomb",
+        "Use": 1,
+        "Strings": [
+          "$prefixshibabomb"
+        ]
+      },
+      {
+        "Name": "avatar",
+        "Use": 2,
+        "Strings": [
+          "`$prefixavatar [membro]`",
+          "`$prefixavatar\n$prefixavatar LuckShiba"
+        ]
+      },
+      {
+        "Name": "husky",
+        "Use": 1,
+        "Strings": [
+          "`$prefixhusky`"
+        ]
+      },
+      {
+        "Name": "locale",
+        "Use": 2,
+        "Strings": [
+          "`$prefixlocale (pt-BR/en-US)`",
+          "`$prefixlocale pt-BR`"
+        ]
+      },
+      {
+        "Name": "setprefix",
+        "Use": 3,
+        "Strings": [
+          "`$prefixlocale (prefixo)`",
+          "`$prefixlocale sh!`",
+          "`$prefixsetprefix sh!`\n`$prefixsetprefix shiba cmd` (use `cmd` no final caso o prefixo termine com um espaço)"
+        ]
+      },
+      {
+        "Name": "help",
+        "Use": 2,
+        "Strings": [
+          "`$prefixhelp [módulo]`",
+          "`$prefixhelp\n$prefixhelp imagens`"
+        ]
+      }
     ]
   }
 }

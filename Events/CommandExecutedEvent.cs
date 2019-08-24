@@ -32,13 +32,17 @@ namespace ShibaBot.Events {
                         break;
                     case CommandError.BadArgCount:
                         builder.Title = locales.Errors.BadArgCount;
-                        new CommandUseExtension().EmbedCommandUse(ref builder, locales, command.Value.Name, (context as CommandContext).IsPrivate ? "shiba " : await new GuildsDAO().GetPrefixAsync(context.Guild.Id));
-                        await context.Channel.SendMessageAsync(embed: builder.Build());
+                        bool hasCommandUse = new CommandUseExtension().EmbedCommandUse(ref builder, locales, command.Value.Name, await Utils.GetPrefixAsync(context as CommandContext));
+                        if (hasCommandUse) {
+                            await context.Channel.SendMessageAsync(embed: builder.Build());
+                        }
                         break;
                     case CommandError.ObjectNotFound:
                         builder.Title = locales.Errors.ObjectNotFound;
-                        new CommandUseExtension().EmbedCommandUse(ref builder, locales, command.Value.Name, (context as CommandContext).IsPrivate ? "shiba " : await new GuildsDAO().GetPrefixAsync(context.Guild.Id));
-                        await context.Channel.SendMessageAsync(embed: builder.Build());
+                        bool hasCommandUse2 = new CommandUseExtension().EmbedCommandUse(ref builder, locales, command.Value.Name, await Utils.GetPrefixAsync(context as CommandContext));
+                        if (hasCommandUse2) {
+                            await context.Channel.SendMessageAsync(embed: builder.Build());
+                        }
                         break;
                 }
             }

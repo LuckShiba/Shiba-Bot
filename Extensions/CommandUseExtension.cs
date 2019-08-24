@@ -4,38 +4,30 @@ using ShibaBot.Models;
 
 namespace ShibaBot.Extensions {
     public class CommandUseExtension {
-        public void EmbedCommandUse(ref EmbedBuilder builder, LocalesModel locales, string commandName, string guildPrefix) {
+        public bool EmbedCommandUse(ref EmbedBuilder builder, LocalesModel locales, string commandName, string guildPrefix) {
             LocalesModel.CommandsUseModel commandsUse = locales.CommandsUse;
 
-            switch (commandName) {
-                case "shiba":
-                    AddFields(ref builder, guildPrefix,
-                        NewField(commandsUse.CommandUse, commandsUse.shiba));
-                    break;
-                case "shibabomb":
-                    AddFields(ref builder, guildPrefix,
-                        NewField(commandsUse.CommandUse, commandsUse.shibabomb));
-                    break;
-                case "avatar":
-                    AddFields(ref builder, guildPrefix,
-                        NewField(commandsUse.CommandUse, commandsUse.avatar[0]),
-                        NewField(commandsUse.Examples, commandsUse.avatar[1]));
-                    break;
-                case "husky":
-                    AddFields(ref builder, guildPrefix,
-                        NewField(commandsUse.CommandUse, commandsUse.husky));
-                    break;
-                case "locale":
-                    AddFields(ref builder, guildPrefix,
-                        NewField(commandsUse.CommandUse, commandsUse.locale[0]),
-                        NewField(commandsUse.Example, commandsUse.locale[1]));
-                    break;
-                case "setprefix":
-                    AddFields(ref builder, guildPrefix,
-                        NewField(commandsUse.CommandUse, commandsUse.setprefix[0]),
-                        NewField(commandsUse.Examples, commandsUse.setprefix[1]));
-                    break;
+            foreach (LocalesModel.CommandsUseModel.CommandsModel command in commandsUse.Commands) {
+                if (command.Name == commandName) {
+                    switch (command.Use) {
+                        case 1:
+                            AddFields(ref builder, guildPrefix,
+                                NewField(commandsUse.CommandUse, command.Strings[0]));
+                            break;
+                        case 2:
+                            AddFields(ref builder, guildPrefix,
+                                NewField(commandsUse.CommandUse, command.Strings[0]),
+                                NewField(commandsUse.Example, command.Strings[1]));
+                            break;
+                        case 3:
+                            AddFields(ref builder, guildPrefix,
+                                NewField(commandsUse.CommandUse, command.Strings[0]),
+                                NewField(commandsUse.Examples, command.Strings[1]));
+                            break;
+                    }
+                }
             }
+            return false;
         }
         private Tuple<string, string> NewField(string name, string value) {
             return new Tuple<string, string>(name, value);

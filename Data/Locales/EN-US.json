@@ -18,26 +18,93 @@
       "InvalidLocale": "Enter a valid language!",
       "Prefix": "This server's prefix changed to `$prefix` successfully.",
       "InvalidPrefix": "Enter a prefix of less than 10 characters!"
+    },
+    "Help": {
+      "Help": "To see the commands of a module use `$prefixhelp module`.",
+      "ModulesEmbed": "Modules:",
+      "Commands": "Commands:",
+      "Modules": [
+        {
+          "Name": "Configuration",
+          "Commands": [
+            "setprefix",
+            "locale"
+          ],
+          "Description": "Guild Settings.",
+          "Emoji": "\u2699"
+        },
+        {
+          "Name": "Images",
+          "Commands": [
+            "shiba",
+            "shibabomb",
+            "avatar",
+            "husky"
+          ],
+          "Description": "Images commands.",
+          "Emoji": "\uD83D\uDDBC"
+        }
+      ]
     }
   },
   "CommandsUse": {
     "CommandUse": "Command use:",
     "Example": "Example:",
-    "Examples": "Examples",
-    "shiba": "`$prefixshiba`",
-    "shibabomb": "`$prefixshibabomb`",
-    "avatar": [
-      "`$prefixavatar [member]`",
-      "`$prefixavatar\n$prefixavatar LuckShiba`"
-    ],
-    "husky": "$prefixhusky",
-    "locale": [
-      "`$prefixlocale (pt-BR/en-US)`",
-      "`$prefixlocale en-US`"
-    ],
-    "setprefix": [
-      "`$prefixsetprefix (prefix)`",
-      "`$prefixsetprefix sh!`\n`$prefixsetprefix shiba cmd` (use `cmd` at the end if prefix ends with a space)"
+    "Examples": "Examples:",
+    "Commands": [
+      {
+        "Name": "shiba",
+        "Use": 1,
+        "Strings": [
+          "`$prefixshiba`"
+        ]
+      },
+      {
+        "Name": "shibabomb",
+        "Use": 1,
+        "Strings": [
+          "`$prefixshibabomb`"
+        ]
+      },
+      {
+        "Name": "avatar",
+        "Use": 2,
+        "Strings": [
+          "`$prefixavatar [member]`",
+          "`$prefixavatar\n$prefixavatar LuckShiba`"
+        ]
+      },
+      {
+        "Name": "husky",
+        "Use": 1,
+        "Strings": [
+          "$prefixhusky"
+        ]
+      },
+      {
+        "Name": "locale",
+        "Use": 2,
+        "Strings": [
+          "`$prefixlocale (pt-BR/en-US)`",
+          "`$prefixlocale en-US`"
+        ]
+      },
+      {
+        "Name": "setprefix",
+        "Use": 3,
+        "Strings": [
+          "`$prefixsetprefix (prefix)`",
+          "`$prefixsetprefix sh!`\n`$prefixsetprefix shiba cmd` (use `cmd` at the end if prefix ends with a space)"
+        ]
+      },
+      {
+        "Name": "help",
+        "Use": 3,
+        "Strings": [
+          "`$prefixhelp [module]`",
+          "`$prefixhelp\n$prefixhelp Images`"
+        ]
+      }
     ]
   }
 }

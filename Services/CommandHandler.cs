@@ -35,10 +35,7 @@ namespace ShibaBot.Services {
                 CommandContext context = new CommandContext(_client, message);
 
                 int argPos = 0;
-                string guildPrefix = "shiba ";
-                if (!context.IsPrivate) {
-                    guildPrefix = await new GuildsDAO().GetPrefixAsync(context.Guild.Id);
-                }
+                string guildPrefix = await Utils.GetPrefixAsync(context);
                 if (message.HasStringPrefix(guildPrefix, ref argPos, StringComparison.OrdinalIgnoreCase) ||
                     message.HasMentionPrefix(_client.CurrentUser, ref argPos)) {
                     await _commands.ExecuteAsync(context, argPos, _provider);
