@@ -7,7 +7,7 @@
       "UserManageGuild": "Você precisa da permissão `Gerenciar servidor` para poder usar esse comando."
     },
     "Forbidden": {
-      "EmbedLinks": "Eu preciso da permissão `Inserir links` para esse comando."
+      "EmbedLinks": "Eu preciso da permissão `Inserir links` para poder funcionar corretamente."
     }
   },
   "Mention": "Meu prefixo nesse servidor é `$prefix`.",
@@ -93,8 +93,7 @@
         "Name": "setprefix",
         "Use": 3,
         "Strings": [
-          "`$prefixlocale (prefixo)`",
-          "`$prefixlocale sh!`",
+          "`$prefixsetprefix (prefixo)`",
           "`$prefixsetprefix sh!`\n`$prefixsetprefix shiba cmd` (use `cmd` no final caso o prefixo termine com um espaço)"
         ]
       },

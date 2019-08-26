@@ -7,7 +7,7 @@
       "UserManageGuild": "You need the `Manage Guild` permission to use this command."
     },
     "Forbidden": {
-      "EmbedLinks": "I need the `Embed links` permission for this command."
+      "EmbedLinks": "I need the `Embed links` permission to work properly."
     }
   },
   "Mention": "My prefix on this server is `$prefix`.",

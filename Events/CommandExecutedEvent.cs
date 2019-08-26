@@ -11,7 +11,7 @@ namespace ShibaBot.Events {
 
         public async Task CommandExecutedAsync(Optional<CommandInfo> command, ICommandContext context, IResult result) {
             if (!command.IsSpecified) return;
-
+            
             if (!result.IsSuccess) {
                 EmbedBuilder builder = new EmbedBuilder() { Color = Utils.embedColor };
 

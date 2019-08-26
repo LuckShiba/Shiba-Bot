@@ -7,8 +7,9 @@ using System.Text.RegularExpressions;
 using ShibaBot.Events;
 using Discord;
 using System;
-using ShibaBot.Data.MySQL.DAO;
+using Discord.Net;
 using ShibaBot.Models;
+using System.Net;
 
 namespace ShibaBot.Services {
     public class CommandHandler {
@@ -36,9 +37,13 @@ namespace ShibaBot.Services {
 
                 int argPos = 0;
                 string guildPrefix = await Utils.GetPrefixAsync(context);
+
                 if (message.HasStringPrefix(guildPrefix, ref argPos, StringComparison.OrdinalIgnoreCase) ||
                     message.HasMentionPrefix(_client.CurrentUser, ref argPos)) {
-                    await _commands.ExecuteAsync(context, argPos, _provider);
+
+                    if (await Utils.PermissionCheckAsync(context)) {
+                        await _commands.ExecuteAsync(context, argPos, _provider);
+                    }
                 }
                 else if (Regex.IsMatch(message.Content, $"^<@!?{_client.CurrentUser.Id}>$")) {
                     EmbedBuilder builder = new EmbedBuilder() { Color = Utils.embedColor };
@@ -46,7 +51,9 @@ namespace ShibaBot.Services {
                     if (guildPrefix.EndsWith(' ')) { guildPrefix += "\u200b"; }
                     builder.Title = context.IsPrivate ? locales.MentionDM : locales.Mention.Replace("$prefix", guildPrefix);
 
-                    await context.Channel.SendMessageAsync(embed: builder.Build());
+                    if (await Utils.PermissionCheckAsync(context)) {
+                        await context.Channel.SendMessageAsync(embed: builder.Build());
+                    }
                 }
             }).Start();
             return Task.CompletedTask;

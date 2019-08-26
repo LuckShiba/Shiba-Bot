@@ -25,6 +25,7 @@ namespace ShibaBot.Extensions {
                                 NewField(commandsUse.Examples, command.Strings[1]));
                             break;
                     }
+                    return true;
                 }
             }
             return false;

@@ -21,14 +21,7 @@ namespace ShibaBot.Services {
 
         private async Task LogAsync(LogMessage log) {
             if (log.Exception is CommandException exception) {
-                CommandContext context = (CommandContext)exception.Context;
-
-                LocalesModel.ErrorsModel locales = (await Language.GetLanguageAsync(context)).Errors;
-                if (!context.IsPrivate) {
-                    if (!(await context.Guild.GetCurrentUserAsync()).GetPermissions((IGuildChannel)context.Channel).EmbedLinks && (await context.Guild.GetCurrentUserAsync()).GetPermissions((IGuildChannel)context.Channel).SendMessages) {
-                        await context.Channel.SendMessageAsync(locales.Forbidden.EmbedLinks);
-                    }
-                }
+                await Utils.PermissionCheckAsync(exception.Context as CommandContext);
             }
 
             else {
