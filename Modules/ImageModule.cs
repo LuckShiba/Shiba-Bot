@@ -66,5 +66,21 @@ namespace ShibaBot.Modules {
 
             await Context.Channel.SendMessageAsync(embed: builder.Build());
         }
+        [Command("reddit")]
+        public async Task RedditAsync() {
+            WebClient webClient = new WebClient();
+            string jsonText = webClient.DownloadString("https://www.reddit.com/r/shiba/random.json?limit=1");
+            webClient.Dispose();
+            RedditModel.DataModel.ChildrenModel.DataModel redditJson = JsonConvert.DeserializeObject<List<RedditModel>>(jsonText)[0].Data.Children[0].Data;
+            EmbedBuilder builder = new EmbedBuilder {
+                Color = Utils.embedColor,
+                Description = redditJson.Title,
+                Author = new EmbedAuthorBuilder { Name = redditJson.Author },
+                Footer = new EmbedFooterBuilder { Text = redditJson.PermaLink },
+                ImageUrl = redditJson.Url
+            };
+
+            await Context.Channel.SendMessageAsync(embed: builder.Build());
+        }
     }
 }

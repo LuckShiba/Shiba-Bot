@@ -39,7 +39,8 @@
             "shiba",
             "shibabomb",
             "avatar",
-            "husky"
+            "husky",
+            "reddit"
           ],
           "Description": "Images commands.",
           "Emoji": "\uD83D\uDDBC"
@@ -79,6 +80,13 @@
         "Use": 1,
         "Strings": [
           "$prefixhusky"
+        ]
+      },
+      {
+        "Name": "reddit",
+        "Use": 1,
+        "Strings": [
+          "$prefixreddit"
         ]
       },
       {
