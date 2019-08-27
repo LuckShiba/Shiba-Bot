@@ -21,6 +21,8 @@ namespace ShibaBot.Models {
                     public string Url { set; get; }
                     [JsonProperty("permalink")]
                     public string PermaLink { set; get; }
+                    [JsonProperty("is_video")]
+                    public bool IsVideo { get; set; }
                 }
             }
         }

@@ -68,13 +68,22 @@ namespace ShibaBot.Modules {
         }
         [Command("reddit")]
         public async Task RedditAsync() {
+            RedditModel.DataModel.ChildrenModel.DataModel redditJson;
             WebClient webClient = new WebClient();
-            string jsonText = webClient.DownloadString("https://www.reddit.com/r/shiba/random.json?limit=1");
+            // string jsonText = webClient.DownloadString("https://www.reddit.com/r/shiba/random.json?limit=1&obey_over18=true");
+            string jsonText = webClient.DownloadString("https://www.reddit.com/r/shiba/comments/cu5c1z/buddy_has_a_hot_spot_and_has_to_use_the_cone_but/.json");
+            redditJson = JsonConvert.DeserializeObject<List<RedditModel>>(jsonText)[0].Data.Children[0].Data;
+
+            while (redditJson.IsVideo) {
+                jsonText = webClient.DownloadString("https://www.reddit.com/r/shiba/random.json?limit=1");
+                
+                redditJson = JsonConvert.DeserializeObject<List<RedditModel>>(jsonText)[0].Data.Children[0].Data;
+            }
+
             webClient.Dispose();
-            RedditModel.DataModel.ChildrenModel.DataModel redditJson = JsonConvert.DeserializeObject<List<RedditModel>>(jsonText)[0].Data.Children[0].Data;
             EmbedBuilder builder = new EmbedBuilder {
                 Color = Utils.embedColor,
-                Description = redditJson.Title,
+                Description = WebUtility.HtmlDecode(redditJson.Title),
                 Author = new EmbedAuthorBuilder { Name = redditJson.Author },
                 Footer = new EmbedFooterBuilder { Text = redditJson.PermaLink },
                 ImageUrl = redditJson.Url
