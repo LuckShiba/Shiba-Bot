@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ShibaBot.Modules {
     public class HelpModule : ModuleBase<CommandContext> {
         [Command("help"), Alias("ajuda", "commands", "comandos")]
-        public async Task HelpCommand(string module = null) {
+        public async Task HelpAsync(string module = null) {
             LocalesModel lang = await Language.GetLanguageAsync(Context);
             EmbedBuilder builder = new EmbedBuilder { Color = Utils.embedColor };
             if (module is null) {
