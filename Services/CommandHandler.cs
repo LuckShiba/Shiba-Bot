@@ -46,7 +46,7 @@ namespace ShibaBot.Services {
                     }
                 }
                 else if (Regex.IsMatch(message.Content, $"^<@!?{_client.CurrentUser.Id}>$")) {
-                    EmbedBuilder builder = new EmbedBuilder() { Color = Utils.embedColor };
+                    EmbedBuilder builder = new EmbedBuilder { Color = Utils.embedColor };
                     LocalesModel locales = await Language.GetLanguageAsync(context);
                     if (guildPrefix.EndsWith(' ')) { guildPrefix += "\u200b"; }
                     builder.Title = context.IsPrivate ? locales.MentionDM : locales.Mention.Replace("$prefix", guildPrefix);
