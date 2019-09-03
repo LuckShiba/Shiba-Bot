@@ -8,7 +8,10 @@ namespace ShibaBot.Extensions {
             LocalesModel.CommandsUseModel commandsUse = locales.CommandsUse;
 
             foreach (LocalesModel.CommandsUseModel.CommandsModel command in commandsUse.Commands) {
-                if (command.Name == commandName) {
+                commandName = commandName.ToLower();
+                if (command.Name == commandName || command.Aliases.Contains(commandName)) {
+                    builder.Description = $"**{command.Name}:** ";
+                    builder.Description += $"{command.Description}";
                     switch (command.Use) {
                         case 1:
                             AddFields(ref builder, guildPrefix,
@@ -34,7 +37,7 @@ namespace ShibaBot.Extensions {
             return new Tuple<string, string>(name, value);
         }
         private void AddFields(ref EmbedBuilder builder, string guildPrefix, params Tuple<string, string>[] fields) {
-            foreach(Tuple<string, string> field in fields) {
+            foreach (Tuple<string, string> field in fields) {
                 builder.AddField(field.Item1, field.Item2.Replace("$prefix", guildPrefix));
             }
         }

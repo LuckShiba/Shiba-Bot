@@ -17,12 +17,15 @@
       "Locale": "Linguagem alterada para `$lang` com sucesso.",
       "InvalidLocale": "Digite uma linguagem válida!",
       "Prefix": "Prefixo desse servidor alterado para `$prefix` com sucesso.",
-      "InvalidPrefix": "Digite um prefixo com menos de 10 caracteres!"
+      "InvalidPrefix": [
+        "Digite um prefixo com menos de 10 caracteres!",
+        "Digite um prefixo que não contenha `."
+      ]                          
     },
     "Help": {
-      "Help": "Para ver os comandos de um módulo use `$prefixhelp módulo`.",
-      "ModulesEmbed": "Módulos:",
+      "Help": "Para mais informações sobre um comando use `$prefixhelp comando`.",
       "Commands": "Comandos:",
+      "CommandHelp":  "Ajuda",
       "Modules": [
         {
           "Name": "Configuração",
@@ -30,7 +33,6 @@
             "setprefix",
             "locale"
           ],
-          "Description": "Configurações do servidor.",
           "Emoji": "\u2699"
         },
         {
@@ -42,7 +44,6 @@
             "husky",
             "reddit"
           ],
-          "Description": "Comandos de imagens.",
           "Emoji": "\uD83D\uDDBC"
         }
       ]
@@ -55,6 +56,10 @@
     "Commands": [
       {
         "Name": "shiba",
+        "Aliases": [
+          "shibe"
+        ],
+        "Description": "Envia uma imagem aleatória de um shiba.",
         "Use": 1,
         "Strings": [
           "$prefixshiba"
@@ -62,6 +67,12 @@
       },
       {
         "Name": "shibabomb",
+        "Aliases": [
+          "shibebomb",
+          "shibasbomb",
+          "shibesbomb"
+        ],
+        "Description": "Envia 5 imagens aleatórias de um shiba.",
         "Use": 1,
         "Strings": [
           "$prefixshibabomb"
@@ -69,14 +80,20 @@
       },
       {
         "Name": "avatar",
+        "Aliases": [
+          "pfp"
+        ],
+        "Description": "Envia o avatar de um membro.",
         "Use": 2,
         "Strings": [
           "`$prefixavatar [membro]`",
-          "`$prefixavatar\n$prefixavatar LuckShiba"
+          "`$prefixavatar\n$prefixavatar LuckShiba`"
         ]
       },
       {
         "Name": "husky",
+        "Aliases": [],
+        "Description": "Envia uma imagem aleatória de um husky.",
         "Use": 1,
         "Strings": [
           "`$prefixhusky`"
@@ -84,6 +101,8 @@
       },
       {
         "Name": "reddit",
+        "Aliases": [],
+        "Description": "Envia uma publicação aleatória do r/shiba.",
         "Use": 1,
         "Strings": [
           "$prefixreddit"
@@ -91,6 +110,11 @@
       },
       {
         "Name": "locale",
+        "Aliases": [
+          "language",
+          "lang"
+        ],
+        "Description": "Altera a minha linguagem em um servidor.",
         "Use": 2,
         "Strings": [
           "`$prefixlocale (pt-BR/en-US)`",
@@ -99,18 +123,29 @@
       },
       {
         "Name": "setprefix",
+        "Aliases": [
+          "prefix",
+          "prefixo"
+        ],
+        "Description": "Altera o prefixo de um servidor.",
         "Use": 3,
         "Strings": [
           "`$prefixsetprefix (prefixo)`",
-          "`$prefixsetprefix sh!`\n`$prefixsetprefix shiba cmd` (use `cmd` no final caso o prefixo termine com um espaço)"
+          "`$prefixsetprefix sh!\n$prefixsetprefix shiba cmd` (use `cmd` no final caso o prefixo termine com um espaço)"
         ]
       },
       {
         "Name": "help",
-        "Use": 2,
+        "Aliases": [
+          "ajuda",
+          "commands",
+          "comandos"
+        ],
+        "Description": "Mostra meus comandos e informações sobre eles.",
+        "Use": 3,
         "Strings": [
-          "`$prefixhelp [módulo]`",
-          "`$prefixhelp\n$prefixhelp imagens`"
+          "`$prefixhelp [comando]`",
+          "`$prefixhelp\n$prefixhelp shiba`"
         ]
       }
     ]

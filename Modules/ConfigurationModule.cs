@@ -40,28 +40,33 @@ namespace ShibaBot.Modules {
 
         [Command("setprefix"), Alias("prefix", "prefixo")]
         public async Task SetPrefixAsync([Remainder] string prefix) {
-            LocalesModel locales = (await Language.GetLanguageAsync(Context));
+            LocalesModel locales = await Language.GetLanguageAsync(Context);
             EmbedBuilder builder = new EmbedBuilder() { Color = Utils.embedColor };
+            if (!prefix.Contains('`')) {
+                string[] prefixs = prefix.Split(' ');
+                if (prefixs.Length > 1 && prefixs[prefixs.Length - 1] == "cmd") {
+                    prefix = "";
+                    for (int i = 0; i <= prefixs.Length - 2; i++) {
+                        prefix += $"{prefixs[i]} ";
+                    }
+                }
 
-            string[] prefixs = prefix.Split(' ');
-            if (prefixs.Length > 1 || prefixs[prefixs.Length - 1] == "cmd") {
-                prefix = "";
-                for (int i = 0; i <= prefixs.Length - 2; i++) {
-                    prefix += $"{prefixs[i]} ";
+                if (prefix.Length <= 10) {
+                    await new GuildsDAO().UpdatePrefixAsync(Context.Guild.Id, prefix);
+                    if (prefix.EndsWith(' ')) { prefix += "\u200b"; }
+                    builder.Title = locales.Modules.Configuration.Prefix.Replace("$prefix", prefix);
+                }
+                else {
+                    builder.Title = locales.Modules.Configuration.InvalidPrefix[0];
+                    new CommandUseExtension().EmbedCommandUse(ref builder, locales, "setprefix", await new GuildsDAO().GetPrefixAsync(Context.Guild.Id));
                 }
             }
-
-            if (prefix.Length <= 10) {
-                await new GuildsDAO().UpdatePrefixAsync(Context.Guild.Id, prefix);
-                if (prefix.EndsWith(' ')) { prefix += "\u200b"; }
-                builder.Title = locales.Modules.Configuration.Prefix.Replace("$prefix", prefix);
-                await Context.Channel.SendMessageAsync(embed: builder.Build());
-            }
             else {
-                builder.Title = locales.Modules.Configuration.InvalidPrefix;
+                builder.Title = locales.Modules.Configuration.InvalidPrefix[1];
                 new CommandUseExtension().EmbedCommandUse(ref builder, locales, "setprefix", await new GuildsDAO().GetPrefixAsync(Context.Guild.Id));
-                await Context.Channel.SendMessageAsync(embed: builder.Build());
             }
+
+        await Context.Channel.SendMessageAsync(embed: builder.Build());
         }
     }
 }
