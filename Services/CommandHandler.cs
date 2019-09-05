@@ -37,20 +37,24 @@ namespace ShibaBot.Services {
 
                 int argPos = 0;
 
-                if (await utils.PermissionCheckAsync(context)) {
-                    string guildPrefix = await utils.GetPrefixAsync(context);
 
-                    if (message.HasStringPrefix(guildPrefix, ref argPos, StringComparison.OrdinalIgnoreCase) ||
-                    message.HasMentionPrefix(_client.CurrentUser, ref argPos)) {
+                string guildPrefix = await utils.GetPrefixAsync(context);
+
+                if (message.HasStringPrefix(guildPrefix, ref argPos, StringComparison.OrdinalIgnoreCase) ||
+                message.HasMentionPrefix(_client.CurrentUser, ref argPos)) {
+                    if (await utils.PermissionCheckAsync(context)) {
                         await _commands.ExecuteAsync(context, argPos, _provider);
                     }
-                    else if (Regex.IsMatch(message.Content, $"^<@!?{_client.CurrentUser.Id}>$")) {
+                }
+                else if (Regex.IsMatch(message.Content, $"^<@!?{_client.CurrentUser.Id}>$")) {
+                    if (await utils.PermissionCheckAsync(context)) {
                         EmbedBuilder builder = new EmbedBuilder { Color = new Color(Utils.embedColor) };
                         LocalesModel locales = await Language.GetLanguageAsync(context);
                         builder.Title = locales.Mention.Replace("$prefix", guildPrefix);
                         await context.Channel.SendMessageAsync(embed: builder.Build());
                     }
                 }
+
             }).Start();
             return Task.CompletedTask;
         }
