@@ -4,7 +4,6 @@ namespace ShibaBot.Models {
     public  class LocalesModel {
         public ErrorsModel Errors { set; get; }
         public string Mention { set; get; }
-        public string MentionDM { set; get; }
         public ModulesModel Modules { set; get; }
         public CommandsUseModel CommandsUse { set; get; }
 

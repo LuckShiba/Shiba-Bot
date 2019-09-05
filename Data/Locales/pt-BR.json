@@ -10,8 +10,7 @@
       "EmbedLinks": "Eu preciso da permissão `Inserir links` para poder funcionar corretamente."
     }
   },
-  "Mention": "Meu prefixo nesse servidor é `$prefix`.",
-  "MentionDM": "Meu prefixo é `shiba \u200b`.",
+  "Mention": "Use `$prefixhelp` para ver meus comandos.",
   "Modules": {
     "Configuration": {
       "Locale": "Linguagem alterada para `$lang` com sucesso.",
