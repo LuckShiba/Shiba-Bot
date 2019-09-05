@@ -31,7 +31,7 @@
           "Name": "Configuration",
           "Commands": [
             "setprefix",
-            "locale"
+            "setlocale"
           ],
           "Emoji": "\u2699"
         },
@@ -109,16 +109,17 @@
         ]
       },
       {
-        "Name": "locale",
+        "Name": "setlocale",
         "Aliases": [
+          "locale",
           "language",
           "lang"
         ],
         "Description": "Changes my language on a server.",
         "Use": 2,
         "Strings": [
-          "`$prefixlocale (pt-BR/en-US)`",
-          "`$prefixlocale en-US`"
+          "`$prefixsetlocale (pt-BR/en-US)`",
+          "`$prefixsetlocale en-US`"
         ]
       },
       {

@@ -23,7 +23,7 @@ namespace ShibaBot.Modules {
                 Footer = new EmbedFooterBuilder {
                     Text = "shibe.online"
                 },
-                Color = Utils.embedColor
+                Color = new Color(Utils.embedColor)
             };
 
             await Context.Channel.SendMessageAsync(embed: builder.Build());
@@ -43,7 +43,7 @@ namespace ShibaBot.Modules {
             EmbedBuilder builder = new EmbedBuilder {
                 ImageUrl = (user ?? Context.User).GetAvatarUrl(size: 1024),
                 Title = (user ?? Context.User).ToString(),
-                Color = Utils.embedColor
+                Color = new Color(Utils.embedColor)
             };
 
             await Context.Channel.SendMessageAsync(embed: builder.Build());
@@ -61,7 +61,7 @@ namespace ShibaBot.Modules {
                 Footer = new EmbedFooterBuilder {
                     Text = "dog.ceo"
                 },
-                Color = Utils.embedColor
+                Color = new Color(Utils.embedColor)
             };
 
             await Context.Channel.SendMessageAsync(embed: builder.Build());
@@ -70,8 +70,7 @@ namespace ShibaBot.Modules {
         public async Task RedditAsync() {
             RedditModel.DataModel.ChildrenModel.DataModel redditJson;
             WebClient webClient = new WebClient();
-            // string jsonText = webClient.DownloadString("https://www.reddit.com/r/shiba/random.json?limit=1&obey_over18=true");
-            string jsonText = webClient.DownloadString("https://www.reddit.com/r/shiba/comments/cu5c1z/buddy_has_a_hot_spot_and_has_to_use_the_cone_but/.json");
+            string jsonText = webClient.DownloadString("https://www.reddit.com/r/shiba/random.json?limit=1&obey_over18=true");
             redditJson = JsonConvert.DeserializeObject<List<RedditModel>>(jsonText)[0].Data.Children[0].Data;
 
             while (redditJson.IsVideo) {
@@ -82,9 +81,9 @@ namespace ShibaBot.Modules {
 
             webClient.Dispose();
             EmbedBuilder builder = new EmbedBuilder {
-                Color = Utils.embedColor,
+                Color = new Color(Utils.embedColor),
                 Description = WebUtility.HtmlDecode(redditJson.Title),
-                Author = new EmbedAuthorBuilder { Name = redditJson.Author },
+                Author = new EmbedAuthorBuilder { Name = $"/u/{redditJson.Author}" },
                 Footer = new EmbedFooterBuilder { Text = redditJson.PermaLink },
                 ImageUrl = redditJson.Url
             };

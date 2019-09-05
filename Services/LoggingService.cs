@@ -2,8 +2,7 @@
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using ShibaBot.Models;
-using ShibaBot.Singletons;
+using ShibaBot.Extensions;
 using System.Threading.Tasks;
 
 namespace ShibaBot.Services {
@@ -21,7 +20,7 @@ namespace ShibaBot.Services {
 
         private async Task LogAsync(LogMessage log) {
             if (log.Exception is CommandException exception) {
-                await Utils.PermissionCheckAsync(exception.Context as CommandContext);
+                await new UtilitiesExtension().PermissionCheckAsync(exception.Context as CommandContext);
             }
 
             else {

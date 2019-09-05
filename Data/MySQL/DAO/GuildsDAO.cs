@@ -4,7 +4,7 @@ using System.Data;
 
 namespace ShibaBot.Data.MySQL.DAO {
     public class GuildsDAO {
-        private readonly MySqlConnection connection = MySQLConnectionFactory.Connect();
+        private readonly MySqlConnection connection = new MySQLConnectionFactory().Connect();
 
         public async Task<string> GetLocaleAsync(ulong ID) {
             MySqlCommand query = new MySqlCommand("GetLocale", connection) {

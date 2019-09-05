@@ -11,11 +11,11 @@ namespace ShibaBot.Modules {
     [RequireContext(ContextType.Guild, ErrorMessage = "GuildOnly")]
     [RequireUserPermission(GuildPermission.ManageGuild, ErrorMessage = "UserManageGuild")]
     public class ConfigurationModule : ModuleBase<CommandContext> {
-        [Command("locale"), Alias("language", "lang")]
+        [Command("setlocale"), Alias("locale", "language", "lang")]
         public async Task LocaleAsync(string locale) {
             GuildsDAO guilds = new GuildsDAO();
 
-            EmbedBuilder builder = new EmbedBuilder() { Color = Utils.embedColor };
+            EmbedBuilder builder = new EmbedBuilder() { Color = new Color(Utils.embedColor) };
 
             switch (locale.ToLower()) {
                 case "pt-br":
@@ -41,7 +41,7 @@ namespace ShibaBot.Modules {
         [Command("setprefix"), Alias("prefix", "prefixo")]
         public async Task SetPrefixAsync([Remainder] string prefix) {
             LocalesModel locales = await Language.GetLanguageAsync(Context);
-            EmbedBuilder builder = new EmbedBuilder() { Color = Utils.embedColor };
+            EmbedBuilder builder = new EmbedBuilder() { Color = new Color(Utils.embedColor) };
             if (!prefix.Contains('`')) {
                 string[] prefixs = prefix.Split(' ');
                 if (prefixs.Length > 1 && prefixs[prefixs.Length - 1] == "cmd") {
