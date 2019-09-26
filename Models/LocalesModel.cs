@@ -42,7 +42,6 @@ namespace ShibaBot.Models {
                 public class ModuleModel {
                     public string Name { set; get; }
                     public List<string> Commands { set; get; }
-                    public string Emoji { set; get; }
                 }
             }
         }

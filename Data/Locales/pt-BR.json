@@ -31,8 +31,7 @@
           "Commands": [
             "setprefix",
             "setlocale"
-          ],
-          "Emoji": "\u2699"
+          ]
         },
         {
           "Name": "Imagens",
@@ -42,8 +41,7 @@
             "avatar",
             "husky",
             "reddit"
-          ],
-          "Emoji": "\uD83D\uDDBC"
+          ]
         }
       ]
     }
@@ -61,12 +59,13 @@
         "Description": "Envia uma imagem aleatória de um shiba.",
         "Use": 1,
         "Strings": [
-          "$prefixshiba"
+          "`$prefixshiba`"
         ]
       },
       {
-        "Name": "shibabomb",
+        "Name": "bomb",
         "Aliases": [
+          "shibabomb",
           "shibebomb",
           "shibasbomb",
           "shibesbomb"
@@ -74,7 +73,7 @@
         "Description": "Envia 5 imagens aleatórias de um shiba.",
         "Use": 1,
         "Strings": [
-          "$prefixshibabomb"
+          "`$prefixshibabomb`"
         ]
       },
       {
@@ -104,7 +103,7 @@
         "Description": "Envia uma publicação aleatória do r/shiba.",
         "Use": 1,
         "Strings": [
-          "$prefixreddit"
+          "`$prefixreddit`"
         ]
       },
       {

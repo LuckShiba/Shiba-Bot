@@ -32,7 +32,6 @@
             "setprefix",
             "setlocale"
           ],
-          "Emoji": "\u2699"
         },
         {
           "Name": "Images",
@@ -43,7 +42,6 @@
             "husky",
             "reddit"
           ],
-          "Emoji": "\uD83D\uDDBC"
         }
       ]
     }
@@ -65,8 +63,9 @@
         ]
       },
       {
-        "Name": "shibabomb",
+        "Name": "bomb",
         "Aliases": [
+          "shibabomb",
           "shibebomb",
           "shibasbomb",
           "shibesbomb"
@@ -95,7 +94,7 @@
         "Description": "Sends a random image of a husky.",
         "Use": 1,
         "Strings": [
-          "$prefixhusky"
+          "`$prefixhusky`"
         ]
       },
       {
@@ -104,7 +103,7 @@
         "Description": "Sends a random post from r/shiba.",
         "Use": 1,
         "Strings": [
-          "$prefixreddit"
+          "`$prefixreddit`"
         ]
       },
       {
@@ -146,6 +145,36 @@
         "Strings": [
           "`$prefixhelp [command]`",
           "`$prefixhelp\n$prefixhelp shiba`"
+        ]
+      },
+      {
+        "Name": "connect",
+        "Aliases": [
+          "conectar",
+          "join",
+          "entrar"
+        ],
+        "Description": "Connects to a voice channel.",
+        "Use": 3,
+        "Strings": [
+          "`$prefixconnect [voice channel]`",
+          "`$prefixconnect\n$prefixconnect Music`"
+        ]
+      },
+      {
+        "Name": "disconnect",
+        "Aliases": [
+          "leave",
+          "sair",
+          "exit",
+          "stop",
+          "parar",
+          "dc"
+        ],
+        "Description": "Disconnects from a voice channel.",
+        "Use": 1,
+        "Strings": [
+          "`$prefixdisconnect`"
         ]
       }
     ]

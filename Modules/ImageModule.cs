@@ -4,19 +4,18 @@ using Discord.WebSocket;
 using System.Net;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using ShibaBot.Singletons;
-using ShibaBot.Models;
+using Newtonsoft.Json;
 
 namespace ShibaBot.Modules {
     [Name("Image")]
     public class ImageModule : ModuleBase<CommandContext> {
-        [Command("shiba"), Alias("shibe")]
+        [Command("shiba", true), Alias("shibe")]
         public async Task ShibaAsync() {
             WebClient webClient = new WebClient();
-            string jsonText = webClient.DownloadString("https://shibe.online/api/shibes");
+            List<string> items = JsonConvert.DeserializeObject<List<string>>(webClient.DownloadString("https://shibe.online/api/shibes"));
             webClient.Dispose();
-            List<string> items = JsonConvert.DeserializeObject<List<string>>(jsonText);
 
             EmbedBuilder builder = new EmbedBuilder {
                 ImageUrl = items[0],
@@ -29,7 +28,7 @@ namespace ShibaBot.Modules {
             await Context.Channel.SendMessageAsync(embed: builder.Build());
         }
 
-        [Command("shibabomb"), Alias("shibebomb", "shibasbomb", "shibesbomb")]
+        [Command("bomb", true), Alias("shibabomb", "shibebomb", "shibasbomb", "shibesbomb")]
         public async Task ShibaBombAsync() {
             WebClient webClient = new WebClient();
             string jsonText = webClient.DownloadString("https://shibe.online/api/shibes?count=5");
@@ -40,55 +39,41 @@ namespace ShibaBot.Modules {
 
         [Command("avatar"), Alias("pfp")]
         public async Task AvatarAsync([Remainder] SocketUser user = null) {
+            user = user ?? Context.User as SocketUser;
             EmbedBuilder builder = new EmbedBuilder {
-                ImageUrl = (user ?? Context.User).GetAvatarUrl(size: 1024),
-                Title = (user ?? Context.User).ToString(),
+                ImageUrl = user.GetAvatarUrl(size: 1024) ?? user.GetDefaultAvatarUrl(),
+                Title = user.ToString(),
                 Color = new Color(Utils.embedColor)
             };
 
             await Context.Channel.SendMessageAsync(embed: builder.Build());
         }
 
-        [Command("husky")]
+        [Command("husky", true)]
         public async Task HuskyAsync() {
             WebClient webClient = new WebClient();
-            string jsonText = webClient.DownloadString("https://dog.ceo/api/breed/husky/images/random");
-            webClient.Dispose();
-            string url = JsonConvert.DeserializeObject<DogCEOModel>(jsonText).message;
-
             EmbedBuilder builder = new EmbedBuilder {
-                ImageUrl = url,
+                ImageUrl = (string)JObject.Parse(webClient.DownloadString("https://dog.ceo/api/breed/husky/images/random"))["message"],
                 Footer = new EmbedFooterBuilder {
                     Text = "dog.ceo"
                 },
                 Color = new Color(Utils.embedColor)
             };
-
+            
+            webClient.Dispose();
             await Context.Channel.SendMessageAsync(embed: builder.Build());
         }
-        [Command("reddit")]
+        [Command("reddit", true)]
         public async Task RedditAsync() {
-            RedditModel.DataModel.ChildrenModel.DataModel redditJson;
+            
             WebClient webClient = new WebClient();
             string jsonText = webClient.DownloadString("https://www.reddit.com/r/shiba/random.json?limit=1&obey_over18=true");
-            redditJson = JsonConvert.DeserializeObject<List<RedditModel>>(jsonText)[0].Data.Children[0].Data;
-
-            while (redditJson.IsVideo) {
-                jsonText = webClient.DownloadString("https://www.reddit.com/r/shiba/random.json?limit=1");
-                
-                redditJson = JsonConvert.DeserializeObject<List<RedditModel>>(jsonText)[0].Data.Children[0].Data;
-            }
-
+            string permaLink = (string)JArray.Parse(jsonText)[0]["data"]["children"][0]["data"]["permalink"];
             webClient.Dispose();
-            EmbedBuilder builder = new EmbedBuilder {
-                Color = new Color(Utils.embedColor),
-                Description = WebUtility.HtmlDecode(redditJson.Title),
-                Author = new EmbedAuthorBuilder { Name = $"/u/{redditJson.Author}" },
-                Footer = new EmbedFooterBuilder { Text = redditJson.PermaLink },
-                ImageUrl = redditJson.Url
-            };
 
-            await Context.Channel.SendMessageAsync(embed: builder.Build());
+            await Context.Channel.SendMessageAsync($"https://reddit.com{permaLink}");
+            
+            
         }
     }
 }

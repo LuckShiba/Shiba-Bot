@@ -19,7 +19,7 @@ namespace ShibaBot.Modules {
                     foreach (string command in helpModule.Commands) {
                         commands.Add($"`{command}`");
                     }
-                    builder.AddField($"{helpModule.Emoji} {helpModule.Name}", string.Join(", ", commands));
+                    builder.AddField(helpModule.Name, string.Join(", ", commands));
                 }
             }
             else {

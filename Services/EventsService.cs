@@ -1,17 +1,23 @@
 ﻿using System.Threading.Tasks;
-using Discord.Commands;
 using ShibaBot.Singletons;
-using ShibaBot.Models;
 using ShibaBot.Extensions;
-using ShibaBot.Data.MySQL.DAO;
+using Discord.Commands;
+using ShibaBot.Models;
 using Discord;
 
-namespace ShibaBot.Events {
-    public class CommandExecutedEvent {
+namespace ShibaBot.Services {
+    public class EventsService {
+        private readonly CommandService _commands;
+
+        public EventsService(CommandService commands) {
+            _commands = commands;
+
+            _commands.CommandExecuted += CommandExecutedAsync;
+        }
 
         public async Task CommandExecutedAsync(Optional<CommandInfo> command, ICommandContext context, IResult result) {
             if (!command.IsSpecified) return;
-            
+
             if (!result.IsSuccess) {
                 EmbedBuilder builder = new EmbedBuilder() { Color = new Color(Utils.embedColor) };
 

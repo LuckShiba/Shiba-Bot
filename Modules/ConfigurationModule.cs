@@ -12,7 +12,7 @@ namespace ShibaBot.Modules {
     [RequireUserPermission(GuildPermission.ManageGuild, ErrorMessage = "UserManageGuild")]
     public class ConfigurationModule : ModuleBase<CommandContext> {
         [Command("setlocale"), Alias("locale", "language", "lang")]
-        public async Task LocaleAsync(string locale) {
+        public async Task SetLocaleAsync(string locale) {
             GuildsDAO guilds = new GuildsDAO();
 
             EmbedBuilder builder = new EmbedBuilder() { Color = new Color(Utils.embedColor) };

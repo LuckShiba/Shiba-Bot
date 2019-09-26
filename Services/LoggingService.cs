@@ -18,27 +18,29 @@ namespace ShibaBot.Services {
             _commands.Log += LogAsync;
         }
 
-        private async Task LogAsync(LogMessage log) {
-            if (log.Exception is CommandException exception) {
-                await new UtilitiesExtension().PermissionCheckAsync(exception.Context as CommandContext);
+        private async Task LogAsync(LogMessage logMessage) {
+            if (logMessage.Exception is CommandException exception) {
+                if (!await new UtilitiesExtension().PermissionCheckAsync(exception.Context as CommandContext)) {
+                    Log(logMessage);
+                }
             }
 
             else {
-                Log(log);
+                Log(logMessage);
             }
         }
-        private void Log(LogMessage log) {
-            if (log.Severity == LogSeverity.Warning || log.Severity == LogSeverity.Error || log.Severity == LogSeverity.Critical) {
+        private void Log(LogMessage logMessage) {
+            if (logMessage.Severity == LogSeverity.Warning || logMessage.Severity == LogSeverity.Error || logMessage.Severity == LogSeverity.Critical) {
                 Console.ForegroundColor = ConsoleColor.Red;
             }
 
-            else if (log.Severity == LogSeverity.Info) {
+            else if (logMessage.Severity == LogSeverity.Info) {
                 Console.ForegroundColor = ConsoleColor.Cyan;
             }
 
-            string logMessage = $"{DateTime.Now.ToString("hh:mm:ss")} [{log.Severity}] {log.Source}: {log.Exception?.ToString() ?? log.Message}";
+            string logString = $"{DateTime.Now.ToString("hh:mm:ss")} [{logMessage.Severity}] {logMessage.Source}: {logMessage.Exception?.ToString() ?? logMessage.Message}";
 
-            Console.WriteLine(logMessage);
+            Console.WriteLine(logString);
 
             Console.ResetColor();
         }

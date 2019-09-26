@@ -4,11 +4,11 @@ using Discord.Commands;
 using ShibaBot.Singletons;
 using System.Threading;
 using System.Text.RegularExpressions;
-using ShibaBot.Events;
 using Discord;
 using System;
 using ShibaBot.Extensions;
 using ShibaBot.Models;
+using System.Linq;
 
 namespace ShibaBot.Services {
     public class CommandHandler {
@@ -22,7 +22,6 @@ namespace ShibaBot.Services {
             _provider = provider;
 
             _client.MessageReceived += MessageReceivedAsync;
-            _commands.CommandExecuted += new CommandExecutedEvent().CommandExecutedAsync;
         }
 
         private Task MessageReceivedAsync(SocketMessage socketMessage) {
@@ -30,13 +29,14 @@ namespace ShibaBot.Services {
             {
                 SocketUserMessage message = socketMessage as SocketUserMessage;
 
-                if (message is null || message.Author.Id == _client.CurrentUser.Id) return;
+                if (message is null || message.Author.IsBot) return;
 
                 CommandContext context = new CommandContext(_client, message);
                 UtilitiesExtension utils = new UtilitiesExtension();
 
                 int argPos = 0;
 
+                context.Guild.Emotes.First(a => a.Id == 0);
 
                 string guildPrefix = await utils.GetPrefixAsync(context);
 
