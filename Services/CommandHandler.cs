@@ -36,8 +36,6 @@ namespace ShibaBot.Services {
 
                 int argPos = 0;
 
-                context.Guild.Emotes.First(a => a.Id == 0);
-
                 string guildPrefix = await utils.GetPrefixAsync(context);
 
                 if (message.HasStringPrefix(guildPrefix, ref argPos, StringComparison.OrdinalIgnoreCase) ||
