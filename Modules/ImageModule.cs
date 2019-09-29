@@ -72,8 +72,6 @@ namespace ShibaBot.Modules {
             webClient.Dispose();
 
             await Context.Channel.SendMessageAsync($"https://reddit.com{permaLink}");
-            
-            
         }
     }
 }
