@@ -39,8 +39,7 @@
             "shiba",
             "shibabomb",
             "avatar",
-            "husky",
-            "reddit"
+            "husky"
           ],
         }
       ]
@@ -95,15 +94,6 @@
         "Use": 1,
         "Strings": [
           "`$prefixhusky`"
-        ]
-      },
-      {
-        "Name": "reddit",
-        "Aliases": [],
-        "Description": "Sends a random post from r/shiba.",
-        "Use": 1,
-        "Strings": [
-          "`$prefixreddit`"
         ]
       },
       {

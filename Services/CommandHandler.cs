@@ -29,7 +29,7 @@ namespace ShibaBot.Services {
             {
                 SocketUserMessage message = socketMessage as SocketUserMessage;
 
-                if (message is null || message.Author.IsBot) return;
+                if (message == null || message.Author.IsBot) return;
 
                 CommandContext context = new CommandContext(_client, message);
                 UtilitiesExtension utils = new UtilitiesExtension();

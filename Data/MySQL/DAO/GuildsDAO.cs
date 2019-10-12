@@ -29,7 +29,7 @@ namespace ShibaBot.Data.MySQL.DAO {
             (await query.ExecuteReaderAsync()).Close();
             connection.Close();
             query.Dispose();
-            return query.Parameters["_Prefix"].Value.ToString();            
+            return query.Parameters["_Prefix"].Value.ToString();
         }
 
         public async Task UpdateLocaleAsync(ulong ID, string Locale) {

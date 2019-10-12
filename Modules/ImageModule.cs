@@ -63,15 +63,5 @@ namespace ShibaBot.Modules {
             webClient.Dispose();
             await Context.Channel.SendMessageAsync(embed: builder.Build());
         }
-        [Command("reddit", true)]
-        public async Task RedditAsync() {
-            
-            WebClient webClient = new WebClient();
-            string jsonText = webClient.DownloadString("https://www.reddit.com/r/shiba/random.json?limit=1&obey_over18=true");
-            string permaLink = (string)JArray.Parse(jsonText)[0]["data"]["children"][0]["data"]["permalink"];
-            webClient.Dispose();
-
-            await Context.Channel.SendMessageAsync($"https://reddit.com{permaLink}");
-        }
     }
 }

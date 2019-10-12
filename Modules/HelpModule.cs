@@ -12,7 +12,7 @@ namespace ShibaBot.Modules {
         public async Task HelpAsync(string commandName = null) {
             LocalesModel lang = await Language.GetLanguageAsync(Context);
             EmbedBuilder builder = new EmbedBuilder { Color = new Color(Utils.embedColor) };
-            if (commandName is null) {
+            if (commandName == null) {
                 builder.Description = lang.Modules.Help.Help.Replace("$prefix", await new UtilitiesExtension().GetPrefixAsync(Context));
                 foreach (LocalesModel.ModulesModel.HelpModel.ModuleModel helpModule in lang.Modules.Help.Modules) {
                     List<string> commands = new List<string>();
