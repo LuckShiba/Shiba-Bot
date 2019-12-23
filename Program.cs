@@ -6,10 +6,7 @@ using Discord.Commands;
 
 namespace ShibaBot {
     class Program {
-        static void Main()
-            => MainAsync().GetAwaiter().GetResult();
-
-        static async Task MainAsync() {
+        async static Task Main() {
             ServiceCollection services = new ServiceCollection();
             services.AddSingleton(new DiscordSocketClient());
             services.AddSingleton(new CommandService());
@@ -26,6 +23,5 @@ namespace ShibaBot {
 
             await Task.Delay(-1);
         }
-
     }
 }

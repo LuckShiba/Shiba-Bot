@@ -353,3 +353,7 @@ MigrationBackup/
 
 # Database files
 *.db
+
+#VSCODE
+*.code-workspace
+.vscode/
