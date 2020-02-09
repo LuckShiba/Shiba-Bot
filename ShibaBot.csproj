@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <None Update="Data\MySQL\shiba_db.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="Data\Sqlite\LocalDB.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
