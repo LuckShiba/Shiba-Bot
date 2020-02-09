@@ -37,7 +37,7 @@
           "Name": "Imagens",
           "Commands": [
             "shiba",
-            "shibabomb",
+            "bomb",
             "avatar",
             "husky"
           ]
@@ -72,7 +72,7 @@
         "Description": "Envia 5 imagens aleatórias de um shiba.",
         "Use": 1,
         "Strings": [
-          "`$prefixshibabomb`"
+          "`$prefixbomb`"
         ]
       },
       {

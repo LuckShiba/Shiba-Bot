@@ -36,7 +36,7 @@ namespace ShibaBot.Services {
 
                 int argPos = 0;
 
-                string guildPrefix = await utils.GetPrefixAsync(context);
+                    string guildPrefix = await utils.GetPrefixAsync(context);
 
                 if (message.HasStringPrefix(guildPrefix, ref argPos, StringComparison.OrdinalIgnoreCase) ||
                 message.HasMentionPrefix(_client.CurrentUser, ref argPos)) {
@@ -52,7 +52,6 @@ namespace ShibaBot.Services {
                         await context.Channel.SendMessageAsync(embed: builder.Build());
                     }
                 }
-
             }).Start();
             return Task.CompletedTask;
         }

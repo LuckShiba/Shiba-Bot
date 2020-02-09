@@ -8,9 +8,9 @@ namespace ShibaBot.Extensions {
     public class UtilitiesExtension {
         public async Task<string> GetPrefixAsync(CommandContext context) {
             if (!context.IsPrivate) {
-                return await new GuildsDAO().GetPrefixAsync(context.Guild.Id);
+                return await new GuildDAO().GetPrefixAsync(context.Guild.Id);
             }
-            return "shiba ";
+            return "s.";
         }
 
         public async Task<bool> PermissionCheckAsync(CommandContext context) {

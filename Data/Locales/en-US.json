@@ -15,7 +15,7 @@
     "Configuration": {
       "Locale": "Language changed to `$lang` successfully.",
       "InvalidLocale": "Enter a valid language!",
-      "Prefix": "This server's prefix changed to `$prefix` successfully.",
+      "Prefix": "This server's prefix has been changed to `$prefix` successfully.",
       "InvalidPrefix": [
         "Enter a prefix of less than 10 characters!",
         "Enter a prefix that doesn't contain `."
@@ -37,7 +37,7 @@
           "Name": "Images",
           "Commands": [
             "shiba",
-            "shibabomb",
+            "bomb",
             "avatar",
             "husky"
           ],
