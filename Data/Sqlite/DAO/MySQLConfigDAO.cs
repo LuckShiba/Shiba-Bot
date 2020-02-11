@@ -14,7 +14,7 @@ namespace ShibaBot.Data.Sqlite.DAO {
             using (SqliteDataReader reader = query.ExecuteReader()) {
                 MySQLConfigModel mySQLConfig= null;
                 while (reader.Read()) {
-                    mySQLConfig = new MySQLConfigModel(reader["IP"].ToString(), reader["Database"].ToString(), reader["User"].ToString(), reader["Password"].ToString());
+                    mySQLConfig = new MySQLConfigModel(reader["IP"].ToString(), reader["Port"].ToString(), reader["Database"].ToString(), reader["User"].ToString(), reader["Password"].ToString());
                 }
                 reader.Close();
                 connection.Close();

@@ -5,7 +5,7 @@ namespace ShibaBot.Data.MySQL {
     public static class MySQLConnectionFactory {
         public static MySqlConnection Connect() {
             MySQLConfigModel mySQLConfig = new MySQLConfigDAO().Load();
-            MySqlConnection connection = new MySqlConnection($"Server={mySQLConfig.IP};Database={mySQLConfig.Database};Uid={mySQLConfig.User};Pwd={mySQLConfig.Password};");
+            MySqlConnection connection = new MySqlConnection($"Server={mySQLConfig.IP};Port={mySQLConfig.Port};Database={mySQLConfig.Database};Uid={mySQLConfig.User};Pwd={mySQLConfig.Password};");
             connection.Open();
             return connection;
         }
