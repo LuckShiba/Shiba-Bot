@@ -11,9 +11,10 @@ namespace ShibaBot.Data.MySQL.DAO {
             MySqlCommand command = new MySqlCommand("call GetLocale(@ID)", connection);
             command.Parameters.AddWithValue("@ID", ID);
             DbDataReader reader = await command.ExecuteReaderAsync();
+            connection.Close();
             if (await reader.ReadAsync()) {
                 return Convert.ToInt32(reader["Locale"]);
-            }           
+            }
             return 0;
         }
 
@@ -21,24 +22,27 @@ namespace ShibaBot.Data.MySQL.DAO {
             MySqlCommand command = new MySqlCommand("call GetPrefix(@ID)", connection);
             command.Parameters.AddWithValue("@ID", ID);
             DbDataReader reader = await command.ExecuteReaderAsync();
+            connection.Close();
             if (await reader.ReadAsync()) {
                 return reader["Prefix"].ToString();
             }
             return "s.";
         }
 
-        public async Task<int> UpdateLocaleAsync(ulong ID, int Locale) {
+        public async Task UpdateLocaleAsync(ulong ID, int Locale) {
             MySqlCommand command = new MySqlCommand("call SetLocale(@ID, @Locale)", connection);
             command.Parameters.AddWithValue("@ID", ID);
             command.Parameters.AddWithValue("@Locale", Locale);
-            return await command.ExecuteNonQueryAsync();
+            await command.ExecuteNonQueryAsync();
+            connection.Close();
         }
 
-        public async Task<int> UpdatePrefixAsync(ulong ID, string Prefix) {
+        public async Task UpdatePrefixAsync(ulong ID, string Prefix) {
             MySqlCommand command = new MySqlCommand("call SetPrefix(@ID, @Prefix)", connection);
             command.Parameters.AddWithValue("@ID", ID);
             command.Parameters.AddWithValue("@Prefix", Prefix);
-            return await command.ExecuteNonQueryAsync();
+            await command.ExecuteNonQueryAsync();
+            connection.Close();
         }
     }
 }

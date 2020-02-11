@@ -19,11 +19,11 @@ namespace ShibaBot.Modules {
 
             switch (locale.ToLower()) {
                 case "pt-br":
-                    _ = await guilds.UpdateLocaleAsync(Context.Guild.Id, 2);
+                    await guilds.UpdateLocaleAsync(Context.Guild.Id, 2);
                     builder.Title = Language.pt_BR.Modules.Configuration.Locale.Replace("$lang", "pt-BR");
                     break;
                 case "en-us":
-                    _ = await guilds.UpdateLocaleAsync(Context.Guild.Id, 1);
+                    await guilds.UpdateLocaleAsync(Context.Guild.Id, 1);
                     builder.Title = Language.en_US.Modules.Configuration.Locale.Replace("$lang", "en-US");
                     break;
                 default:
@@ -50,7 +50,7 @@ namespace ShibaBot.Modules {
                 }
 
                 if (prefix.Length <= 10) {
-                    _ = await new GuildDAO().UpdatePrefixAsync(Context.Guild.Id, prefix);
+                    await new GuildDAO().UpdatePrefixAsync(Context.Guild.Id, prefix);
                     builder.Title = locales.Modules.Configuration.Prefix.Replace("$prefix", prefix);
                 }
                 else {
