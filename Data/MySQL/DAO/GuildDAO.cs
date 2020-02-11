@@ -12,21 +12,30 @@ namespace ShibaBot.Data.MySQL.DAO {
             command.Parameters.AddWithValue("@ID", ID);
             DbDataReader reader = await command.ExecuteReaderAsync();
             connection.Close();
-            if (await reader.ReadAsync()) {
-                return Convert.ToInt32(reader["Locale"]);
+            try {
+                if (await reader.ReadAsync()) {
+                    return Convert.ToInt32(reader["Locale"]);
+                }
+                return 0;
             }
-            return 0;
+            finally {
+                connection.Close();
+            }
         }
 
         public async Task<string> GetPrefixAsync(ulong ID) {
             MySqlCommand command = new MySqlCommand("call GetPrefix(@ID)", connection);
             command.Parameters.AddWithValue("@ID", ID);
             DbDataReader reader = await command.ExecuteReaderAsync();
-            connection.Close();
-            if (await reader.ReadAsync()) {
-                return reader["Prefix"].ToString();
+            try {
+                if (await reader.ReadAsync()) {
+                    return reader["Prefix"].ToString();
+                }
+                return "s.";
             }
-            return "s.";
+            finally {
+                connection.Close();
+            }
         }
 
         public async Task UpdateLocaleAsync(ulong ID, int Locale) {
