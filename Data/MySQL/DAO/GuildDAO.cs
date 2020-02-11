@@ -11,7 +11,6 @@ namespace ShibaBot.Data.MySQL.DAO {
             MySqlCommand command = new MySqlCommand("call GetLocale(@ID)", connection);
             command.Parameters.AddWithValue("@ID", ID);
             DbDataReader reader = await command.ExecuteReaderAsync();
-            connection.Close();
             try {
                 if (await reader.ReadAsync()) {
                     return Convert.ToInt32(reader["Locale"]);
