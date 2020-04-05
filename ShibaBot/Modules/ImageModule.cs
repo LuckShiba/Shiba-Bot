@@ -9,7 +9,7 @@ using ShibaBot.Constants;
 using System.Net;
 
 namespace ShibaBot.Modules {
-    [Module("image")]
+    [Module("Image")]
     public class ImageModule  {
         [Command("shiba"), Aliases("shibe")]
         public async Task ShibaAsync(CommandContext context) {
