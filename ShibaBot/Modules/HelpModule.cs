@@ -1,20 +1,29 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using ShibaBot.Constants;
+﻿using DSharpPlus.CommandsNext.Attributes;
+using ConfigurationController.Models;
+using MainDatabaseController.Models;
+using ConfigurationController.DAO;
+using MainDatabaseController.DAO;
+using System.Collections.Generic;
+using DSharpPlus.CommandsNext;
+using System.Threading.Tasks;
+using DSharpPlus.Entities;
 using ShibaBot.Extensions;
 using ShibaBot.Attributes;
-using DSharpPlus.Entities;
-using System.Threading.Tasks;
-using DSharpPlus.CommandsNext;
-using System.Collections.Generic;
-using DSharpPlus.CommandsNext.Attributes;
+using ShibaBot.Constants;
+using System.Reflection;
+using System.Linq;
+using System;
 
 namespace ShibaBot.Modules {
     public class HelpModule {
         [Command("help"), Aliases("ajuda", "commands", "comandos")]
-        public async Task HelpAsync(CommandContext context, string commandName = null) {
+        [Description("HelpDescription")]
+        public async Task HelpAsync(CommandContext context, [Description("HelpCommandParameter")] string commandName = null) {
             DiscordEmbedBuilder builder = new DiscordEmbedBuilder { Color = new DiscordColor(EmbedConstant.embedColor) };
+
+            int locale = await new LocaleExtension().GetLocaleAsync(context.Guild);
+
+            StringsModel stringsModel = new StringsModel { Locale = locale };
 
             if (commandName == null) {
                 Type[] types = typeof(HelpModule).Assembly.GetTypes();
@@ -22,25 +31,31 @@ namespace ShibaBot.Modules {
                     ModuleAttribute moduleAttr = types[i].GetCustomAttribute<ModuleAttribute>();
                     if (moduleAttr != null) {
                         MethodInfo[] methods = types[i].GetMethods();
-                        List<string> commands = new List<string>();
+                        string commands = string.Empty;
                         for (int j = 0; j < methods.Length; j++) {
                             CommandAttribute commandAttr = methods[j].GetCustomAttribute<CommandAttribute>();
-                            if (commandAttr != null && methods[j].GetCustomAttribute<HiddenAttribute>() == null) 
-                                commands.Add($"`{commandAttr.Name}`");
+                            if (commandAttr != null && methods[j].GetCustomAttribute<HiddenAttribute>() == null) {
+                                commands += $"`{commandAttr.Name}`, ";
+                            }
                         }
-                        if (commands.Count != 0)
-                            builder.AddField(moduleAttr.Name, string.Join(", ", commands));
+                        if (commands.Length != 0) {
+                            stringsModel.Identifier = moduleAttr.Name;
+                            builder.AddField((await new StringsDAO().LoadAsync(stringsModel)).String, commands[..^2]);
+                        }
                     }
                 }
                 await context.Channel.SendMessageAsync(embed: builder.Build());
             }
             else {
                 Command command = context.CommandsNext.RegisteredCommands.FirstOrDefault(x => x.Key == commandName).Value;
-                if (command == null) {
+                if (command == null)
                     throw new ArgumentException();
-                }
+                stringsModel.Identifier = command.Description;
+                builder.Description = $"**`{command.Name}`: {(await new StringsDAO().LoadAsync(stringsModel)).String}**";
 
-                builder.Title = $"**`{command.Name}`**: {command.Description}";
+                stringsModel.Identifier = "CommandUse";
+
+                builder.AddField((await new StringsDAO().LoadAsync(stringsModel)).String, await new CommandUseExtension().GetCommandUseAsync(command, stringsModel, await new PrefixExtension().GetPrefixAsync(context.Guild)));
                 await context.Channel.SendMessageAsync(embed: builder.Build());
             }
         }
