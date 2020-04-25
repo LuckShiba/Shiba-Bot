@@ -1,4 +1,5 @@
-﻿using DSharpPlus.CommandsNext.Attributes;
+﻿using ConfigurationController.Enumerations;
+using DSharpPlus.CommandsNext.Attributes;
 using ConfigurationController.Models;
 using MainDatabaseController.Models;
 using ConfigurationController.DAO;
@@ -18,8 +19,10 @@ namespace ShibaBot.Modules {
         [RequireUserPermissions(Permissions.ManageGuild)]
         [Command("setlanguage"), Aliases("setlocale")]
         [Description("SetLocaleDescription")]
-        public async Task SetLocaleAsync(CommandContext context, [Description("locale")] string locale) {
-            DiscordEmbedBuilder builder = new DiscordEmbedBuilder { Color = new DiscordColor(EmbedConstant.embedColor) };
+        public async Task SetLocaleAsync(CommandContext context, [Description("Locale")] string locale) {
+            DiscordEmbedBuilder builder = new DiscordEmbedBuilder {
+                Color = new DiscordColor(ColorConstant.embedColor)
+            };
 
             if (context.Channel.IsPrivate) {
                 builder.Title = "This command can only be used in a guild.";
@@ -27,30 +30,33 @@ namespace ShibaBot.Modules {
                 return;
             }
 
-            GuildsDAO guildDAO = new GuildsDAO();
-
-            StringsModel strings;
-
-            StringsDAO stringsDAO = new StringsDAO();
+            GuildsModel guild = await new GuildsDAO().GetAsync(new GuildsModel { ID = context.Guild.Id });
 
             switch (locale.ToLower()) {
                 case "pt-br":
-                    strings = await stringsDAO.LoadAsync(new StringsModel { Identifier = "LocaleUpdated", Locale = 2 });
-                    await guildDAO.SetAsync(new GuildsModel { ID = context.Guild.Id, Locale = 2 });
-                    builder.Title = strings.String.Replace("$lang", "pt-BR");
+                    guild.Locale = Locale.PT_BR;
+                    await new GuildsDAO().SetAsync(guild);
+
+                    builder.Title = (await new StringsDAO().LoadAsync(new StringsModel {
+                        Identifier = "LocaleUpdated",
+                        Locale = Locale.PT_BR,
+                    })).String.Replace("$lang", "pt-BR");
                     break;
                 case "en-us":
-                    strings = await stringsDAO.LoadAsync(new StringsModel { Identifier = "LocaleUpdated", Locale = 1 });
-                    await guildDAO.SetAsync(new GuildsModel { ID = context.Guild.Id, Locale = 1 });
-                    builder.Title = strings.String.Replace("$lang", "en-US");
+                    guild.Locale = Locale.EN_US;
+                    await new GuildsDAO().SetAsync(guild);
+                    builder.Title = (await new StringsDAO().LoadAsync(new StringsModel {
+                        Identifier = "LocaleUpdated",
+                        Locale = Locale.EN_US,
+                    })).String.Replace("$lang", "en-US");
                     break;
                 default:
-                    int currentLocale = (int)(await new GuildsDAO().GetAsync(new GuildsModel { ID = context.Guild.Id })).Locale;
-                    strings = await stringsDAO.LoadAsync(new StringsModel { Identifier = "InvalidLocale", Locale = currentLocale });
-                    builder.Title = strings.String;
-                    
-                    //new CommandUseExtension().EmbedCommandUse(ref builder, locales, "locale", await guilds.GetPrefixAsync(Context.Guild.Id));
-                    return;                    
+                    builder.Title = (await new StringsDAO().LoadAsync(new StringsModel {
+                        Identifier = "InvalidLocale",
+                        Locale = new LocaleExtension().GetLocale(guild)
+                    })).String;
+
+                    throw new ArgumentException();
             }
             await context.Channel.SendMessageAsync(embed: builder.Build());
         }
@@ -61,7 +67,9 @@ namespace ShibaBot.Modules {
             if (prefix == null)
                 throw new ArgumentException();
 
-            DiscordEmbedBuilder builder = new DiscordEmbedBuilder() { Color = new DiscordColor(EmbedConstant.embedColor) };
+            DiscordEmbedBuilder builder = new DiscordEmbedBuilder() {
+                Color = new DiscordColor(ColorConstant.embedColor)
+            };
 
             if (context.Channel.IsPrivate) {
                 builder.Title = "This command can only be used in a guild.";
@@ -69,28 +77,37 @@ namespace ShibaBot.Modules {
                 return;
             }
 
-            StringsDAO stringsDAO = new StringsDAO();
-            StringsModel strings = new StringsModel { Locale = (int)(await new GuildsDAO().GetAsync(new GuildsModel { ID = context.Guild.Id })).Locale };
+            GuildsModel guild = await new GuildsDAO().GetAsync(new GuildsModel { ID = context.Guild.Id });
+            
+            Locale locale = new LocaleExtension().GetLocale(guild);
 
             if (!prefix.Contains('`')) {
                 if (prefix.Length <= 10) {
-                    await new GuildsDAO().SetAsync(new GuildsModel { ID = context.Guild.Id, Prefix = prefix });
-                    strings.Identifier = "PrefixUpdated";
-                    builder.Title = (await stringsDAO.LoadAsync(strings)).String.Replace("$prefix", prefix);
+                    await new GuildsDAO().SetAsync(new GuildsModel {
+                        ID = context.Guild.Id,
+                        Prefix = prefix
+                    });
+                    builder.Title = (await new StringsDAO().LoadAsync(new StringsModel {
+                        Locale = locale,
+                        Identifier = "PrefixUpdated".Replace("$prefix", prefix)
+                    })).String.Replace("$prefix", prefix);
                 }
                 else {
-                    strings.Identifier = "InvalidPrefixSize";
-                    builder.Title = (await stringsDAO.LoadAsync(strings)).String;
-                    //new CommandUseExtension().EmbedCommandUse(ref builder, locales, "setprefix", await new GuildDAO().GetPrefixAsync(Context.Guild.Id));
+                    builder.Title = (await new StringsDAO().LoadAsync(new StringsModel {
+                        Locale = locale,
+                        Identifier = "InvalidPrefixSize"
+                    })).String;
+                    await context.Channel.SendMessageAsync(embed: await new CommandUseExtension().GetCommandUseAsync(builder, context.Command, locale, new PrefixExtension().GetPrefix(guild)));
                 }
             }
             else {
-                strings.Identifier = "InvalidPrefix";
-                builder.Title = (await stringsDAO.LoadAsync(strings)).String;
-                //new CommandUseExtension().EmbedCommandUse(ref builder, locales, "setprefix", await new GuildDAO().GetPrefixAsync(Context.Guild.Id));
+                builder.Title = (await new StringsDAO().LoadAsync(new StringsModel {
+                    Locale = locale,
+                    Identifier = "InvalidPrefix"
+                })).String;
             }
 
-        await context.Channel.SendMessageAsync(embed: builder.Build());
+            await context.Channel.SendMessageAsync(embed: builder.Build());
         }
     }
 }

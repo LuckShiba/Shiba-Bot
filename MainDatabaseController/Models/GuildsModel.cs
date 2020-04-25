@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
+using ConfigurationController.Enumerations;
 
 namespace MainDatabaseController.Models {
     public class GuildsModel {
@@ -9,6 +10,6 @@ namespace MainDatabaseController.Models {
         public string Prefix { get; set; }
         [BsonElement("locale")]
         [BsonIgnoreIfNull]
-        public int? Locale { get; set; }
+        public Locale? Locale { get; set; }
     }
 }

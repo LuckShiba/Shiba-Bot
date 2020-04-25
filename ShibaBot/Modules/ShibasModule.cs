@@ -7,6 +7,7 @@ using DSharpPlus.Entities;
 using ShibaBot.Attributes;
 using ShibaBot.Constants;
 using System.Net;
+using ShibaBot.Extensions;
 
 namespace ShibaBot.Modules {
     [Module("Shibas")]
@@ -16,7 +17,7 @@ namespace ShibaBot.Modules {
         [Description("ShibaDescription")]
         public async Task ShibaAsync(CommandContext context) {
             WebClient webClient = new WebClient();
-            string items = (string)JArray.Parse(webClient.DownloadString("https://shibe.online/api/shibes"))[0];
+            string items = (string)JArray.Parse(await webClient.DownloadStringTaskAsync("https://shibe.online/api/shibes"))[0];
             webClient.Dispose();
 
             DiscordEmbedBuilder builder = new DiscordEmbedBuilder {
@@ -24,7 +25,7 @@ namespace ShibaBot.Modules {
                 Footer = new EmbedFooter {
                     Text = "shibe.online"
                 },
-                Color = new DiscordColor(EmbedConstant.embedColor)
+                Color = new DiscordColor(ColorConstant.embedColor)
             };
 
             await context.Channel.SendMessageAsync(embed: builder.Build());
@@ -34,10 +35,50 @@ namespace ShibaBot.Modules {
         [Description("BombDescription")]
         public async Task BombAsync(CommandContext context) {
             WebClient webClient = new WebClient();
-            string jsonText = webClient.DownloadString("https://shibe.online/api/shibes?count=5");
+            string jsonText = await webClient.DownloadStringTaskAsync("https://shibe.online/api/shibes?count=5");
             webClient.Dispose();
 
             await context.Channel.SendMessageAsync(string.Join('\n', JArray.Parse(jsonText)));
+        }
+
+        [Command("reddit"), Aliases("r/shiba")]
+        [Description("Description")]
+        public async Task RedditAsync(CommandContext context) {
+            WebClient webClient = new WebClient();
+
+            JToken data;
+            do
+                data = JArray.Parse(await webClient.DownloadStringTaskAsync("https://www.reddit.com/r/shiba/random/.json"))[0]["data"]["children"][0]["data"];
+            while ((bool)data["is_video"] || !await new HttpsExtension().IsImageAsync((string)data["url"]));
+
+            webClient.Dispose();
+
+            string author = "u/" + (string)data["author"];
+
+            DiscordEmbedBuilder builder = new DiscordEmbedBuilder {
+                Author = new EmbedAuthor {
+                    Name = author,
+                    Url = $"https://www.reddit.com/{author}"
+                },
+                Color = new DiscordColor(ColorConstant.embedColor),
+                ImageUrl = (string)data["url"],
+                Footer = new EmbedFooter {
+                    Text = "r/shiba",
+                    IconUrl = "https://www.reddit.com/favicon.ico"
+                }
+            };
+
+            string title = (string)data["title"];
+            string url = $"https://www.reddit.com{data["permalink"]}";
+
+            if (title.Length <= 256) {
+                builder.Title = title;
+                builder.Url = url;
+            }
+            else
+                builder.Description = $"[{title}]({url})";
+
+            await context.Channel.SendMessageAsync(embed: builder);
         }
     }
 }

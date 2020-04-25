@@ -1,9 +1,8 @@
-﻿using DSharpPlus.CommandsNext.Attributes;
+﻿using ConfigurationController.Enumerations;
+using DSharpPlus.CommandsNext.Attributes;
 using ConfigurationController.Models;
 using MainDatabaseController.Models;
 using ConfigurationController.DAO;
-using MainDatabaseController.DAO;
-using System.Collections.Generic;
 using DSharpPlus.CommandsNext;
 using System.Threading.Tasks;
 using DSharpPlus.Entities;
@@ -13,17 +12,19 @@ using ShibaBot.Constants;
 using System.Reflection;
 using System.Linq;
 using System;
+using MainDatabaseController.DAO;
 
 namespace ShibaBot.Modules {
     public class HelpModule {
         [Command("help"), Aliases("ajuda", "commands", "comandos")]
         [Description("HelpDescription")]
         public async Task HelpAsync(CommandContext context, [Description("HelpCommandParameter")] string commandName = null) {
-            DiscordEmbedBuilder builder = new DiscordEmbedBuilder { Color = new DiscordColor(EmbedConstant.embedColor) };
+            DiscordEmbedBuilder builder = new DiscordEmbedBuilder { 
+                Color = new DiscordColor(ColorConstant.embedColor)
+            };
 
-            int locale = await new LocaleExtension().GetLocaleAsync(context.Guild);
-
-            StringsModel stringsModel = new StringsModel { Locale = locale };
+            GuildsModel guild = context.Channel.IsPrivate ? null : await new GuildsDAO().GetAsync(new GuildsModel { ID = context.Guild.Id });
+            Locale locale = new LocaleExtension().GetLocale(guild);
 
             if (commandName == null) {
                 Type[] types = typeof(HelpModule).Assembly.GetTypes();
@@ -39,8 +40,10 @@ namespace ShibaBot.Modules {
                             }
                         }
                         if (commands.Length != 0) {
-                            stringsModel.Identifier = moduleAttr.Name;
-                            builder.AddField((await new StringsDAO().LoadAsync(stringsModel)).String, commands[..^2]);
+                            builder.AddField((await new StringsDAO().LoadAsync(new StringsModel {
+                                Locale = locale,
+                                Identifier = moduleAttr.Name
+                            })).String, commands[..^2]);
                         }
                     }
                 }
@@ -50,12 +53,20 @@ namespace ShibaBot.Modules {
                 Command command = context.CommandsNext.RegisteredCommands.FirstOrDefault(x => x.Key == commandName).Value;
                 if (command == null)
                     throw new ArgumentException();
-                stringsModel.Identifier = command.Description;
-                builder.Description = $"**`{command.Name}`: {(await new StringsDAO().LoadAsync(stringsModel)).String}**";
-
-                stringsModel.Identifier = "CommandUse";
-
-                builder.AddField((await new StringsDAO().LoadAsync(stringsModel)).String, await new CommandUseExtension().GetCommandUseAsync(command, stringsModel, await new PrefixExtension().GetPrefixAsync(context.Guild)));
+                builder.Title = $"`{command.Name}`: " +  (await new StringsDAO().LoadAsync(new StringsModel {
+                    Locale = locale,
+                    Identifier = command.Description
+                })).String;
+                if (command.Aliases.Count != 0) {
+                    builder.Description = "\n" + (await new StringsDAO().LoadAsync(new StringsModel {
+                        Locale = locale,
+                        Identifier = "AKA"
+                    })).String + ' ';
+                    for (int i = 0; i < command.Aliases.Count; i++) 
+                        builder.Description += $"`{command.Aliases[i]}`, ";
+                    builder.Description = builder.Description[..^2];
+                }
+                builder = await new CommandUseExtension().GetCommandUseAsync(builder, context.Command, locale, new PrefixExtension().GetPrefix(guild));
                 await context.Channel.SendMessageAsync(embed: builder.Build());
             }
         }

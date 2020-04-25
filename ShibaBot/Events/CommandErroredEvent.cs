@@ -1,9 +1,16 @@
 ﻿using System;
 using DSharpPlus;
+using ShibaBot.Constants;
+using ShibaBot.Extensions;
+using DSharpPlus.Entities;
 using System.Threading.Tasks;
 using DSharpPlus.CommandsNext;
+using ConfigurationController.DAO;
+using MainDatabaseController.Models;
+using ConfigurationController.Models;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.CommandsNext.Exceptions;
+using ConfigurationController.Enumerations;
 
 namespace ShibaBot.Events {
     internal class CommandErroredEvent {
@@ -24,11 +31,20 @@ namespace ShibaBot.Events {
                             break;
                     }
                     break;
-                case ArgumentException e:
-                    Console.WriteLine(e);
-                    // enviar o command use
+                case ArgumentException _:
+                    GuildsModel guild = eventArgs.Context.Channel.IsPrivate ? null : new GuildsModel { ID = eventArgs.Context.Guild.Id };
+                    Locale locale = new LocaleExtension().GetLocale(guild);
+                    DiscordEmbedBuilder builder = new DiscordEmbedBuilder {
+                        Color = new DiscordColor(ColorConstant.embedColor),
+                        Title = (await new StringsDAO().LoadAsync(new StringsModel { 
+                            Locale = locale,
+                            Identifier = "ArgumentError"
+                        })).String
+                    };
+                    await eventArgs.Context.Channel.SendMessageAsync(embed: await new CommandUseExtension().GetCommandUseAsync(builder, eventArgs.Context.Command, locale, new PrefixExtension().GetPrefix(guild)));
                     break;
                 default:
+                    eventArgs.Context?.Client.DebugLogger.LogMessage(LogLevel.Error, "Handler", eventArgs.Exception.StackTrace, DateTime.Now);
                     eventArgs.Context?.Client.DebugLogger.LogMessage(LogLevel.Error, "Handler", eventArgs.Exception.Message, DateTime.Now);
                     break;
             }

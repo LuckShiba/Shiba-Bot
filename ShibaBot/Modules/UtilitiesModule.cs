@@ -15,7 +15,7 @@ namespace ShibaBot.Modules {
             DiscordEmbedBuilder builder = new DiscordEmbedBuilder {
                 ImageUrl = user.AvatarUrl,
                 Title = $"{user.Username}#{user.Discriminator}",
-                Color = new DiscordColor(EmbedConstant.embedColor)
+                Color = new DiscordColor(ColorConstant.embedColor)
             };
             await context.Channel.SendMessageAsync(embed: builder.Build());
         }

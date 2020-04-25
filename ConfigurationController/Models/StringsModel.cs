@@ -1,8 +1,10 @@
-﻿namespace ConfigurationController.Models {
+﻿using ConfigurationController.Enumerations;
+
+namespace ConfigurationController.Models {
     public class StringsModel {
-        public string String { get; set; }
+        public uint ID { get; set; }
         public string Identifier { get; set; }
-        public int Locale { get; set; }
-        public int ID { get; set; }
+        public string String { get; set; }
+        public Locale Locale { get; set; }
     }
 }
