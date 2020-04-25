@@ -10,7 +10,7 @@ namespace ShibaBot.Modules {
     public class UtilitiesModule {
         [Command("avatar"), Aliases("pfp")]
         [Description("AvatarDescription")]
-        public async Task AvatarAsync(CommandContext context, [RemainingText] DiscordUser user = null) {
+        public async Task AvatarAsync(CommandContext context, [Description("AvatarUserParameter")][RemainingText] DiscordUser user = null) {
             user ??= context.User;
             DiscordEmbedBuilder builder = new DiscordEmbedBuilder {
                 ImageUrl = user.AvatarUrl,

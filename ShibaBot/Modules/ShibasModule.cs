@@ -4,10 +4,10 @@ using DSharpPlus.CommandsNext;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using DSharpPlus.Entities;
+using ShibaBot.Extensions;
 using ShibaBot.Attributes;
 using ShibaBot.Constants;
 using System.Net;
-using ShibaBot.Extensions;
 
 namespace ShibaBot.Modules {
     [Module("Shibas")]
@@ -42,7 +42,7 @@ namespace ShibaBot.Modules {
         }
 
         [Command("reddit"), Aliases("r/shiba")]
-        [Description("Description")]
+        [Description("RedditDescription")]
         public async Task RedditAsync(CommandContext context) {
             WebClient webClient = new WebClient();
 

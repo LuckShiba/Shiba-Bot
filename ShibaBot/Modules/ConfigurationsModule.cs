@@ -19,7 +19,7 @@ namespace ShibaBot.Modules {
         [RequireUserPermissions(Permissions.ManageGuild)]
         [Command("setlanguage"), Aliases("setlocale")]
         [Description("SetLocaleDescription")]
-        public async Task SetLocaleAsync(CommandContext context, [Description("Locale")] string locale) {
+        public async Task SetLocaleAsync(CommandContext context, [Description("LocaleParameter")] [RemainingText] string locale) {
             DiscordEmbedBuilder builder = new DiscordEmbedBuilder {
                 Color = new DiscordColor(ColorConstant.embedColor)
             };
@@ -63,7 +63,7 @@ namespace ShibaBot.Modules {
         [RequireUserPermissions(Permissions.ManageGuild)]
         [Command("setprefix")]
         [Description("SetPrefixDescription")]
-        public async Task SetPrefixAsync(CommandContext context, [RemainingText] string prefix) {
+        public async Task SetPrefixAsync(CommandContext context, [Description("PrefixParameter")] [RemainingText] string prefix) {
             if (prefix == null)
                 throw new ArgumentException();
 

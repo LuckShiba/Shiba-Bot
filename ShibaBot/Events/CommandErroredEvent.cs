@@ -17,8 +17,6 @@ namespace ShibaBot.Events {
         internal async Task CommandErrored(CommandErrorEventArgs eventArgs) {
             switch (eventArgs.Exception) {
                 case CommandNotFoundException _:
-                    // comando nao encontrado yay
-                    //mensagem de comando não encontrado?
                     break;
                 case ChecksFailedException e:
                     CheckBaseAttribute check = e.FailedChecks[0];
@@ -44,8 +42,7 @@ namespace ShibaBot.Events {
                     await eventArgs.Context.Channel.SendMessageAsync(embed: await new CommandUseExtension().GetCommandUseAsync(builder, eventArgs.Context.Command, locale, new PrefixExtension().GetPrefix(guild)));
                     break;
                 default:
-                    eventArgs.Context?.Client.DebugLogger.LogMessage(LogLevel.Error, "Handler", eventArgs.Exception.StackTrace, DateTime.Now);
-                    eventArgs.Context?.Client.DebugLogger.LogMessage(LogLevel.Error, "Handler", eventArgs.Exception.Message, DateTime.Now);
+                    eventArgs.Context.Client.DebugLogger.LogMessage(LogLevel.Error, "Handler", eventArgs.Exception.StackTrace, DateTime.Now);
                     break;
             }
         }
