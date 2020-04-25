@@ -14,7 +14,10 @@ using ConfigurationController.Enumerations;
 
 namespace ShibaBot.Events {
     internal class CommandErroredEvent {
-        internal async Task CommandErrored(CommandErrorEventArgs eventArgs) {
+        internal CommandErroredEvent(ref DiscordClient client) {
+            client.GetCommandsNext().CommandErrored += CommandErroredAsync;
+        }
+        private async Task CommandErroredAsync(CommandErrorEventArgs eventArgs) {
             switch (eventArgs.Exception) {
                 case CommandNotFoundException _:
                     break;
@@ -30,7 +33,9 @@ namespace ShibaBot.Events {
                     }
                     break;
                 case ArgumentException _:
-                    GuildsModel guild = eventArgs.Context.Channel.IsPrivate ? null : new GuildsModel { ID = eventArgs.Context.Guild.Id };
+                    GuildsModel guild = eventArgs.Context.Channel.IsPrivate ? null : new GuildsModel {
+                        ID = eventArgs.Context.Guild.Id
+                    };
                     Locale locale = new LocaleExtension().GetLocale(guild);
                     DiscordEmbedBuilder builder = new DiscordEmbedBuilder {
                         Color = new DiscordColor(ColorConstant.embedColor),

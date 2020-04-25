@@ -8,9 +8,7 @@ using DSharpPlus.Entities;
 using ShibaBot.Events;
 using DSharpPlus;
 using System;
-using DSharpPlus.CommandsNext.Entities;
-using DSharpPlus.CommandsNext.Converters;
-using System.Collections.Generic;
+
 
 namespace ShibaBot {
     public class Main {
@@ -32,8 +30,10 @@ namespace ShibaBot {
                 EnableMentionPrefix = true,
                 CustomPrefixPredicate = GetPrefixPositionAsync
             });
+            client.MessageCreated -= commandsNext.HandleCommandsAsync;
             commandsNext.RegisterCommands(typeof(Main).Assembly);
-            commandsNext.CommandErrored += new CommandErroredEvent().CommandErrored;
+            new CommandErroredEvent(ref client);
+            new MessageCreateEvent(ref client);
 
             DatabaseSingleton.Connect(_shibaConfig);
             await client.ConnectAsync();
